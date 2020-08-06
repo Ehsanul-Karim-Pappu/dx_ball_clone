@@ -1,11 +1,11 @@
 class Bar {
     constructor() {
-        this.length = 126;
+        this.length = 150;
         this.thickness = 8;
         this.clearance = 4;
         this.x;
-        this.mid;
         this.y = height - (this.thickness + this.clearance);
+        this.mid;
     }
 
     show(xpos) {
@@ -30,9 +30,9 @@ class Ball {
     constructor() {
         this.x = 200;
         this.y = 200;
-        this.radius = 10;
-        this.sp_x = 5;
-        this.sp_y = 5;
+        this.radius = 8;
+        this.sp_x = 10;
+        this.sp_y = 10;
     }
 
     move() {
@@ -43,14 +43,15 @@ class Ball {
         // drop
         if ((this.x + this.radius > bar.mid - bar.length / 2) && (this.x - this.radius < bar.mid + bar.length / 2)) {
             if (this.y + this.radius > bar.y) {
+                this.y = bar.y - this.radius;
                 this.sp_y *= -1;
-                console.log('drop');
+                // console.log('drop');
             }
         }
     }
 
     reset() {
-        console.log('reset');
+        // console.log('reset');
         this.x = bar.mid;
         this.y = bar.y - this.radius;
         if(this.sp_y > 0) this.sp_y *= -1;

@@ -2,7 +2,7 @@ let bar = null, ball = null;
 let flag = null;
 
 function setup() {
-    createCanvas(650, 450);
+    createCanvas(850, 550);
     bar = new Bar();
     ball = new Ball();
 }
