@@ -42,7 +42,7 @@ class Ball {
         if (this.y < this.radius) this.sp_y *= -1;
         // drop
         if ((this.x + this.radius > bar.mid - bar.length / 2) && (this.x - this.radius < bar.mid + bar.length / 2)) {
-            if (this.y + this.radius >= bar.y) this.sp_y *= -1;
+            if (this.y + this.radius > bar.y) this.sp_y *= -1;
         }
     }
 
