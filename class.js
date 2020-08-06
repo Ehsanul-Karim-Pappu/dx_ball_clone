@@ -31,8 +31,8 @@ class Ball {
         this.x = 200;
         this.y = 200;
         this.radius = 10;
-        this.sp_x = 3;
-        this.sp_y = 3;
+        this.sp_x = 5;
+        this.sp_y = 5;
     }
 
     move() {
@@ -42,8 +42,18 @@ class Ball {
         if (this.y < this.radius) this.sp_y *= -1;
         // drop
         if ((this.x + this.radius > bar.mid - bar.length / 2) && (this.x - this.radius < bar.mid + bar.length / 2)) {
-            if (this.y + this.radius > bar.y) this.sp_y *= -1;
+            if (this.y + this.radius > bar.y) {
+                this.sp_y *= -1;
+                console.log('drop');
+            }
         }
+    }
+
+    reset() {
+        console.log('reset');
+        this.x = bar.mid;
+        this.y = bar.y - this.radius;
+        if(this.sp_y > 0) this.sp_y *= -1;
     }
 
     show() {
