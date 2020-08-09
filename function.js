@@ -15,3 +15,7 @@ function level(_sp) {
     }
     return _sp;
 }
+
+function mouseReleased() {
+    isPressed = true;
+}

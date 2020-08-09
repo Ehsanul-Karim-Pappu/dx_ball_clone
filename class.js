@@ -31,7 +31,8 @@ class Ball {
         this.loc = new Vector(width / 2, height / 2);
         this.radius = 8;
         this.velocity = new Vector(1, 1);
-        this.velocity.setAngle(random(32, 148));
+        this.velocity.setAngle(random(atan2(height, width) * 180 / Math.PI,
+            atan2(height, - width) * 180 / Math.PI));
         this.drop_cnt = 0;
     }
 
@@ -56,7 +57,10 @@ class Ball {
             (this.loc.x - this.radius < bar.mid + bar.length / 2)) {
             if (this.loc.y + this.radius > bar.y) {
                 this.loc.y = bar.y - this.radius;
-                this.velocity.y *= -1;
+                let angle = map(this.loc.x, bar.mid - bar.length / 2, bar.mid + bar.length / 2,
+                    atan2(- height, - width) * 180 / Math.PI, atan2(- height, width) * 180 / Math.PI)
+                this.velocity.setAngle(angle);
+                console.log(angle);
                 this.drop_cnt++;
                 // console.log(this.drop_cnt);
             }
