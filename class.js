@@ -29,7 +29,7 @@ class Bar {
 class Ball {
     constructor() {
         this.loc = new Vector(width / 2, height / 2);
-        this.radius = 8;
+        this.radius = 10;
         this.velocity = new Vector(1, 1);
         this.velocity.setAngle(random(atan2(height, width) * 180 / Math.PI,
             atan2(height, - width) * 180 / Math.PI));
@@ -60,7 +60,6 @@ class Ball {
                 let angle = map(this.loc.x, bar.mid - bar.length / 2, bar.mid + bar.length / 2,
                     atan2(- height, - width) * 180 / Math.PI, atan2(- height, width) * 180 / Math.PI)
                 this.velocity.setAngle(angle);
-                console.log(angle);
                 this.drop_cnt++;
                 // console.log(this.drop_cnt);
             }
@@ -78,5 +77,23 @@ class Ball {
     show() {
         fill(0, 255, 0);
         ellipse(this.loc.x, this.loc.y, this.radius * 2);
+    }
+}
+
+class Brick {
+    constructor(_x, _y) {
+        this.x = _x;
+        this.y = _y;
+        this.length = 60;
+        this.thickness = 30;
+        this.hGap = 5;
+        this.vGap = 5;
+        this.isHit;
+    }
+
+    show () {
+        // noStroke();
+        fill(random(200), random(200), random(200));
+        rect(this.x, this.y, this.length, this.thickness);
     }
 }
