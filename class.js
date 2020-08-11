@@ -93,7 +93,8 @@ class Brick {
 
     show () {
         // noStroke();
-        fill(random(200), random(200), random(200));
+        // fill(random(200), random(200), random(200));
+        fill(200, 0, 0);
         rect(this.x, this.y, this.length, this.thickness);
     }
 }

@@ -47,12 +47,52 @@ function brick_ballColl() {
         for (let c = 0; c < bricks[r].length; c++) {
             if (levels[level][r][c] == '.' && !bricks[r][c].isHit) {
                 if (ball.loc.x + ball.radius > bricks[r][c].x &&
-                    ball.loc.x - ball.radius < bricks[r][c].x + brick.length &&
-                    ball.loc.y + ball.radius > bricks[r][c].y &&
-                    ball.loc.y - ball.radius < bricks[r][c].y + brick.thickness) {
+                    ball.loc.x - ball.radius < bricks[r][c].x + brick.length / 2 &&
+                    ball.loc.y >= bricks[r][c].y &&
+                    ball.loc.y <= bricks[r][c].y + brick.thickness) {
+                        ball.loc.x = bricks[r][c].x - ball.radius;
+                        ball.velocity.x *= -1;
+                        bricks[r][c].isHit = true;
+                        console.log('left');
+                        console.log('ball', ball.loc.x, ball.loc.y);
+                        console.log('ball.edge.x',ball.loc.x + ball.radius, ball.loc.x - ball.radius);
+                        console.log('brick[%d][%d]', r + 1, c + 1, bricks[r][c].x, bricks[r][c].y);
+                }
+                if (ball.loc.x - ball.radius < bricks[r][c].x + brick.length &&
+                    ball.loc.x + ball.radius > bricks[r][c].x + brick.length / 2 &&
+                    ball.loc.y >= bricks[r][c].y &&
+                    ball.loc.y <= bricks[r][c].y + brick.thickness) {
+                        ball.loc.x = bricks[r][c].x + brick.length + ball.radius;
+                        ball.velocity.x *= -1;
+                        bricks[r][c].isHit = true;
+                        console.log('right');
+                        console.log('ball', ball.loc.x, ball.loc.y);
+                        console.log('ball.edge.x',ball.loc.x + ball.radius, ball.loc.x - ball.radius);
+                        console.log('brick[%d][%d]', r + 1, c + 1, bricks[r][c].x, bricks[r][c].y);
+                }
+                if (ball.loc.y + ball.radius > bricks[r][c].y &&
+                    ball.loc.y - ball.radius < bricks[r][c].y + brick.thickness / 2 &&
+                    ball.loc.x >= bricks[r][c].x &&
+                    ball.loc.x <= bricks[r][c].x + brick.length) {
+                        ball.loc.y = bricks[r][c].y - ball.radius;
                         ball.velocity.y *= -1;
                         bricks[r][c].isHit = true;
-                        console.log(bricks[r][c].isHit);
+                        console.log('top');
+                        console.log('ball', ball.loc.x, ball.loc.y);
+                        console.log('ball.edge.y',ball.loc.y + ball.radius, ball.loc.y - ball.radius);
+                        console.log('brick[%d][%d]', r + 1, c + 1, bricks[r][c].x, bricks[r][c].y);
+                }
+                if (ball.loc.y - ball.radius < bricks[r][c].y + brick.thickness &&
+                    ball.loc.y + ball.radius > bricks[r][c].y + brick.thickness / 2 &&
+                    ball.loc.x >= bricks[r][c].x &&
+                    ball.loc.x <= bricks[r][c].x + brick.length) {
+                        ball.loc.y = bricks[r][c].y + brick.thickness + ball.radius;
+                        ball.velocity.y *= -1;
+                        bricks[r][c].isHit = true;
+                        console.log('bottom');
+                        console.log('ball', ball.loc.x, ball.loc.y);
+                        console.log('ball.edge.y',ball.loc.y + ball.radius, ball.loc.y - ball.radius);
+                        console.log('brick[%d][%d]', r + 1, c + 1, bricks[r][c].x, bricks[r][c].y);
                 }
             }
         }
