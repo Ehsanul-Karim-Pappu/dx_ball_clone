@@ -43,14 +43,17 @@ class Ball {
         if (this.loc.x < this.radius) {
             this.velocity.x *= -1;
             this.loc.x = this.radius;
+            wallBall_coll.play();
         }
         if (this.loc.x > width - this.radius) {
             this.velocity.x *= -1;
             this.loc.x = width - this.radius;
+            wallBall_coll.play();
         }
         if (this.loc.y < this.radius) {
             this.loc.y = this.radius;
             this.velocity.y *= -1;
+            wallBall_coll.play();
         }
         // drop
         if ((this.loc.x + this.radius > bar.mid - bar.length / 2) &&
@@ -61,6 +64,7 @@ class Ball {
                     atan2(- height, - width) * 180 / Math.PI, atan2(- height, width) * 180 / Math.PI)
                 this.velocity.setAngle(angle);
                 this.drop_cnt++;
+                paddleBall_coll.play();
                 // console.log(this.drop_cnt);
             }
         }
@@ -95,6 +99,6 @@ class Brick {
         // noStroke();
         // fill(random(200), random(200), random(200));
         fill(200, 0, 0);
-        rect(this.x, this.y, this.length, this.thickness);
+        rect(this.x, this.y, this.length, this.thickness, 3);
     }
 }
