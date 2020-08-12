@@ -132,6 +132,7 @@ function totalBricks(level) {
 function level_inc(level) {
     if (broken_bricks == total_bricks) {
         level++;
+        bricks = [];
         brickArray(level);
         broken_bricks = 0;
         total_bricks = totalBricks(level);

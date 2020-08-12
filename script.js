@@ -18,11 +18,11 @@ function setup() {
 
 function draw() {
     background(220);
+    // if (level == 1) {
+    //     console.log('1');
+    //     debugger;
+    // }
     level = level_inc(level);
-    if (level == 2) {
-        console.log('1');
-        debugger;
-    }
     brickShow(level);
     sp = sp_inc(sp);
     bar.show(mouseX);
