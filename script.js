@@ -1,10 +1,11 @@
 let bar = null, ball = null;
 let flag = null;
-let default_sp = 30;
+let default_sp = 10;
 let sp = default_sp;
 let isPressed = false;
 let bricks = [];
-let level = 1;
+let level = 0;
+let total_bricks = 0, broken_bricks = 0;
 
 function setup() {
     createCanvas(1250, 500);
@@ -12,12 +13,18 @@ function setup() {
     ball = new Ball();
     brick = new Brick(0, 0);
     brickArray(level);
+    total_bricks = totalBricks(level);
 }
 
 function draw() {
     background(220);
+    level = level_inc(level);
+    if (level == 2) {
+        console.log('1');
+        debugger;
+    }
     brickShow(level);
-    sp = sp_level(sp);
+    sp = sp_inc(sp);
     bar.show(mouseX);
     // debugger;
     if (isFallen() || flag) {
@@ -35,5 +42,5 @@ function draw() {
     else ball.move(sp);
     brick_ballColl();
     ball.show();
-    // console.log('speed', sp);
+    // console.log(total_bricks, broken_bricks);
 }
