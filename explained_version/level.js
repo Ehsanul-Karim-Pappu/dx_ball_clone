@@ -1,3 +1,34 @@
+/************************************************************************************
+*************************************************************************************
+This array represents the game levels. Here I have used ' '/blank space to track,
+where there will be no bricks. I have also used some other characters to represent
+extra features and color like - paddle expansion or increase ball velocity
+(absent in this version), etc.
+
+******Which symbol indicates What:******
+////features//// (This will be added in the future version.)
+'blank space' = no brick
+'P'           = paddle expansion
+'p'           = paddle contraction
+'S'           = increase velocity of ball
+'s'           = decrease velocity of ball
+'X'           = skull/lose one life
+'l'           = increase life by one
+'L'           = level up
+
+////color////
+'r' = red
+'g' = green
+'b' = blue
+'y' = yellow
+'m' = magenta
+'c' = cyan
+
+*************************************************************************************
+************************************************************************************/
+
+
+
 let levels = [
     {   //level 0
         extra: [

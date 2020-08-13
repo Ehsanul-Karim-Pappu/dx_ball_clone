@@ -1,3 +1,15 @@
+/***********************************************************************
+************************************************************************
+         functions used in the script.js, are defined here
+************************************************************************
+***********************************************************************/
+
+
+
+
+//checks if the ball is fallen or not
+//if the ball's location passes the bar then user will lose a Life
+//and a sound track will be played.
 function isFallen() {
     if (ball.loc.y + ball.radius > bar.y) {
         if (ball.loc.x + ball.radius < bar.mid - bar.length / 2 ||
@@ -11,10 +23,15 @@ function isFallen() {
     return false;
 }
 
+//this is a p5 js function. every time the mouse button is released, code inside this
+//function will be executed
 function mouseReleased() {
     isPressed = true;
 }
 
+//this function creates a brick array of a given level. it tracks the levels array
+//in level.js file and creates the brick array. and each element in this array is
+//an Brick object (defined  at class.js under Brick)
 function brickArray(level) {
     for (let r = 0; r < levels[level].color.length; r++) {
         bricks[r] = [];
@@ -23,13 +40,17 @@ function brickArray(level) {
             let y = r * (brick.vGap + brick.thickness) + 35;
             bricks[r][c] = new Brick(x, y);
             bricks[r][c].isHit = false;
-            if (levels[level].extra[r][c] != ' ' && levels[level].extra[r][c] != '.') {
-                bricks[r][c].setProperty(levels[level].extra[r][c]);
-            }
+            // if (levels[level].extra[r][c] != ' ' && levels[level].extra[r][c] != '.') {
+            //     bricks[r][c].setProperty(levels[level].extra[r][c]);
+            // }
         }
     }
 }
 
+
+//this function is for display the created brick array in the canvas. it tracks the
+//levels array for the formation and the color property of each brick and checks if
+//the brick is already hit. if hit, then won't display in canvas.
 function brickShow(level) {
     for (let r  = 0; r < levels[level].color.length; r ++) {
         for (let c = 0; c < levels[level].color[r].length; c++) {
@@ -43,6 +64,21 @@ function brickShow(level) {
     }
 }
 
+
+//this is the main function of this whole game. Inside this function, the two nested for
+//loop checks if the the ball hit any brick. first it compare the formation with the levels
+//array and checks if the brick is hit or not earlier. if hit already then no need to check
+//and goes to next iteration. if not hit the checks the current location of the ball and the
+//current brick. if the ball collide with the brick then set the isHit property to true,
+//increases the score and increment the broken_bricks variable and plays a sound file.
+//Bug
+//But my collision detection has two bug which is not fixed currently. if the velocity of the
+//ball increases to a amount that for each successive increase of the velocity, the ball passes
+//several bricks then there will be a problem.The ball may skip one or two bricks. means the
+//ball may skip one or two bricks and collide with the insider brick. there is also a problem with
+//the loop. since i was checking the bricks from below, the bricks below are getting more preference.
+//this causes some problem. there is also a side preference problem of a brick. i checked the left side
+//first, then right side, then top then bottom.
 function brick_ballColl() {
     let br_flag = false;
     for (let r  = bricks.length - 1; r >= 0; r --) {
@@ -137,7 +173,6 @@ function brick_ballColl() {
     }
 }
 
-//special bricks
 // function setXflag(r, c) {
 //     if (bricks[r][c].property == 'P') {
 //
@@ -162,6 +197,8 @@ function brick_ballColl() {
 //     }
 // }
 
+
+//increases the speed by 3
 function sp_inc(_sp) {
     // if (ball.drop_cnt == 5) {
         ball.drop_cnt = 0;
@@ -170,6 +207,8 @@ function sp_inc(_sp) {
     // return _sp;
 }
 
+
+//calculate the total brick at a given level from the levels array.
 function totalBricks(level) {
     let cnt = 0;
     for (let r  = 0; r < levels[level].color.length; r ++) {
@@ -181,8 +220,14 @@ function totalBricks(level) {
     return cnt;
 }
 
+
+//increases the level. this function checks if the broken_bricks is equal to the calculated
+//total bricks. if equal then increments level, increases the speed, set lives to a given default
+//value. then creates the brick array for the incremented level. set the broken_bricks value to
+//zero. and calculate the total_bricks of the incremented level. resets the ball's location and
+//plays a sound track.
+//wanted to stop the ball after level change (absent in this version)
 function level_inc(_level) {
-    let flg = false;
     if (broken_bricks == total_bricks) {
         _level++;
         sp = sp_inc(sp);
@@ -195,10 +240,8 @@ function level_inc(_level) {
         total_bricks = totalBricks(_level);
         ball.reset();
         levelup.play();
-        flg = true;
         // debugger;
     }
-    //wanted to pause a while after the ball has fallen
     // if (isPressed || flg) {
     //     isPressed = false;
     //     ball.move(sp);
@@ -209,6 +252,12 @@ function level_inc(_level) {
     return _level;
 }
 
+
+//checks if won or not. if the level is equal to the length of the levels array then player
+//has finished the last level. cause currently the length of the levels array is 4, and i
+//have numbered the level from zero. so level 3 is the last level and if the player has
+//finished level 3 (last level) then the level_inc(_level) will increment the level to 4,
+//and the condition will satisfy. then some text, and score will be displayed.
 function checkWon(_level) {
     if (_level == levels.length) {
         victory.play();
@@ -227,6 +276,8 @@ function checkWon(_level) {
     return _level;
 }
 
+
+//if game is over then displays some text and score
 function gameOver() {
     gameover.play();
     fill(0);
@@ -241,6 +292,8 @@ function gameOver() {
     noLoop();
 }
 
+
+//displays the score and lives at the canvas
 function score_life() {
     // Score
     fill(0);
@@ -259,6 +312,8 @@ function score_life() {
     }
 }
 
+
+//Instructions for the player, how to play
 function printInstruction() {
     fill(0);
     textAlign(CENTER);

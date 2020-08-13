@@ -93,12 +93,24 @@ class Brick {
         this.hGap = 5;
         this.vGap = 5;
         this.isHit;
+        this.property = false;
     }
 
     show () {
-        // noStroke();
-        // fill(random(200), random(200), random(200));
-        fill(200, 0, 0);
+        this.setColor();
         rect(this.x, this.y, this.length, this.thickness, 3);
+    }
+
+    setColor(val) {
+        if (val == 'r') fill(255, 0, 0);
+        if (val == 'g') fill(0, 255, 0);
+        if (val == 'b') fill(0, 0, 255);
+        if (val == 'y') fill(255, 255, 0);
+        if (val == 'm') fill(255, 0, 255);
+        if (val == 'c') fill(0, 255, 255);
+    }
+
+    setProperty(val) {
+        this.property = val;
     }
 }
