@@ -45,12 +45,12 @@ let levels = [
             " ................. "
         ],
         color: [
-            "       rbgbr       ",
-            "      rbmgmbr      ",
-            "     rbmcgcmbr     ",
-            "    rbmcrgrcmbr    ",
-            "   rbmcrbgbrcmbr   ",
-            " rrbmcrbmgmbrcmbrr "
+            "      grbmbrg      ",
+            "     grbmcmbrg     ",
+            "    grbmcrcmbrg    ",
+            "   grbmcrbrcmbrg   ",
+            "  grbmcrbmbrcmbrg  ",
+            " grbmcrbmgmbrcmbrg "
         ]
     },
 

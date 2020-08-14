@@ -80,97 +80,132 @@ function brickShow(level) {
 //this causes some problem. there is also a side preference problem of a brick. i checked the left side
 //first, then right side, then top then bottom.
 function brick_ballColl() {
-    let br_flag = false;
+    let break_flag = false;
+    let past_loc = new Vector();
+    past_loc = ball.loc.subtract(ball.velocity);
     for (let r  = bricks.length - 1; r >= 0; r --) {
         for (let c = bricks[r].length - 1; c >= 0; c--) {
             if (levels[level].color[r][c] != ' ' && !bricks[r][c].isHit) {
-                if (ball.loc.x + ball.radius > bricks[r][c].x &&
-                    ball.loc.x - ball.radius < bricks[r][c].x + brick.length / 2 &&
-                    ball.loc.y >= bricks[r][c].y &&
-                    ball.loc.y <= bricks[r][c].y + brick.thickness) {
-                        // if (bricks[r][c].property) {
-                        //     setXflag();
-                        // }
-                        ball.loc.x = bricks[r][c].x - ball.radius;
-                        ball.velocity.x *= -1;
-                        bricks[r][c].isHit = true;
-                        score++;
-                        brickBall_coll.play();
-                        // console.log('left');
-                        // console.log('ball', ball.loc.x, ball.loc.y);
-                        // console.log('ball.edge.x',ball.loc.x + ball.radius, ball.loc.x - ball.radius);
-                        // console.log('brick[%d][%d]', r + 1, c + 1, bricks[r][c].x, bricks[r][c].y);
-                        br_flag = true;
-                        broken_bricks++;
-                        break;
+                if (ball.loc.x >= past_loc.x && ball.loc.y <= past_loc.y) { // going upward right
+                    if (checkLeftSide(r, c) || checkBottomSide(r, c)) {
+                        break_flag = true;
+                    }
                 }
-                else if (ball.loc.x - ball.radius < bricks[r][c].x + brick.length &&
-                    ball.loc.x + ball.radius > bricks[r][c].x + brick.length / 2 &&
-                    ball.loc.y >= bricks[r][c].y &&
-                    ball.loc.y <= bricks[r][c].y + brick.thickness) {
-                        // if (bricks[r][c].property) {
-                        //     setXflag();
-                        // }
-                        ball.loc.x = bricks[r][c].x + brick.length + ball.radius;
-                        ball.velocity.x *= -1;
-                        bricks[r][c].isHit = true;
-                        score++;
-                        brickBall_coll.play();
-                        // console.log('right');
-                        // console.log('ball', ball.loc.x, ball.loc.y);
-                        // console.log('ball.edge.x',ball.loc.x + ball.radius, ball.loc.x - ball.radius);
-                        // console.log('brick[%d][%d]', r + 1, c + 1, bricks[r][c].x, bricks[r][c].y);
-                        br_flag = true;
-                        broken_bricks++;
-                        break;
+                if (ball.loc.x <= past_loc.x && ball.loc.y <= past_loc.y) { // going upward left
+                    if (checkRightSide(r, c) || checkBottomSide(r, c)) {
+                        break_flag = true;
+                    }
                 }
-                else if (ball.loc.y + ball.radius > bricks[r][c].y &&
-                    ball.loc.y - ball.radius < bricks[r][c].y + brick.thickness / 2 &&
-                    ball.loc.x + ball.radius >= bricks[r][c].x &&
-                    ball.loc.x - ball.radius <= bricks[r][c].x + brick.length) {
-                        // if (bricks[r][c].property) {
-                        //     setXflag();
-                        // }
-                        ball.loc.y = bricks[r][c].y - ball.radius;
-                        ball.velocity.y *= -1;
-                        bricks[r][c].isHit = true;
-                        score++;
-                        brickBall_coll.play();
-                        // console.log('top');
-                        // console.log('ball', ball.loc.x, ball.loc.y);
-                        // console.log('ball.edge.y',ball.loc.y + ball.radius, ball.loc.y - ball.radius);
-                        // console.log('brick[%d][%d]', r + 1, c + 1, bricks[r][c].x, bricks[r][c].y);
-                        br_flag = true;
-                        broken_bricks++;
-                        break;
+                if (ball.loc.x >= past_loc.x && ball.loc.y >= past_loc.y) { // going downward right
+                    if (checkLeftSide(r, c) || checkTopSide(r, c)) {
+                        break_flag = true;
+                    }
                 }
-                else if (ball.loc.y - ball.radius < bricks[r][c].y + brick.thickness &&
-                    ball.loc.y + ball.radius > bricks[r][c].y + brick.thickness / 2 &&
-                    ball.loc.x + ball.radius >= bricks[r][c].x &&
-                    ball.loc.x - ball.radius <= bricks[r][c].x + brick.length) {
-                        // if (bricks[r][c].property) {
-                        //     setXflag(r, c);
-                        // }
-                        ball.loc.y = bricks[r][c].y + brick.thickness + ball.radius;
-                        ball.velocity.y *= -1;
-                        bricks[r][c].isHit = true;
-                        score++;
-                        brickBall_coll.play();
-                        // console.log('bottom');
-                        // console.log('ball', ball.loc.x, ball.loc.y);
-                        // console.log('ball.edge.y',ball.loc.y + ball.radius, ball.loc.y - ball.radius);
-                        // console.log('brick[%d][%d]', r + 1, c + 1, bricks[r][c].x, bricks[r][c].y);
-                        br_flag = true;
-                        broken_bricks++;
-                        break;
+                if (ball.loc.x <= past_loc.x && ball.loc.y >= past_loc.y) { // going downward left
+                    if (checkRightSide(r, c) || checkTopSide(r, c)) {
+                        break_flag = true;
+                    }
                 }
             }
         }
-        if (br_flag) {
-            br_flag = false;
+        if (break_flag) {
+            break_flag = false;
             break;
         }
     }
+}
+
+//checks every side of a brick
+function checkLeftSide(r, c) {
+    if (ball.loc.x + ball.radius >= bricks[r][c].x &&
+        ball.loc.x + ball.radius < bricks[r][c].x + brick.length / 2 &&
+        ball.loc.y > bricks[r][c].y &&
+        ball.loc.y < bricks[r][c].y + brick.thickness) {
+            // if (bricks[r][c].property) {
+            //     setXflag();
+            // }
+            ball.loc.x = bricks[r][c].x - ball.radius;
+            ball.velocity.x *= -1;
+            bricks[r][c].isHit = true;
+            score++;
+            brickBall_coll.play();
+            // console.log('left');
+            // console.log('ball', ball.loc.x, ball.loc.y);
+            // console.log('ball.edge.x',ball.loc.x + ball.radius, ball.loc.x - ball.radius);
+            // console.log('brick[%d][%d]', r + 1, c + 1, bricks[r][c].x, bricks[r][c].y);
+            broken_bricks++;
+            return true;
+    }
+    return false;
+}
+
+function checkBottomSide(r, c) {
+    if (ball.loc.y - ball.radius <= bricks[r][c].y + brick.thickness &&
+        ball.loc.y - ball.radius > bricks[r][c].y &&
+        ball.loc.x > bricks[r][c].x &&
+        ball.loc.x < bricks[r][c].x + brick.length) {
+            // if (bricks[r][c].property) {
+            //     setXflag(r, c);
+            // }
+            ball.loc.y = bricks[r][c].y + brick.thickness + ball.radius;
+            ball.velocity.y *= -1;
+            bricks[r][c].isHit = true;
+            score++;
+            brickBall_coll.play();
+            // console.log('bottom');
+            // console.log('ball', ball.loc.x, ball.loc.y);
+            // console.log('ball.edge.y',ball.loc.y + ball.radius, ball.loc.y - ball.radius);
+            // console.log('brick[%d][%d]', r + 1, c + 1, bricks[r][c].x, bricks[r][c].y);
+            broken_bricks++;
+            return true;
+    }
+    return false;
+}
+
+function checkRightSide(r, c) {
+    if (ball.loc.x - ball.radius <= bricks[r][c].x + brick.length &&
+        ball.loc.x - ball.radius > bricks[r][c].x + brick.length / 2 &&
+        ball.loc.y > bricks[r][c].y &&
+        ball.loc.y < bricks[r][c].y + brick.thickness) {
+            // if (bricks[r][c].property) {
+            //     setXflag();
+            // }
+            ball.loc.x = bricks[r][c].x + brick.length + ball.radius;
+            ball.velocity.x *= -1;
+            bricks[r][c].isHit = true;
+            score++;
+            brickBall_coll.play();
+            // console.log('right');
+            // console.log('ball', ball.loc.x, ball.loc.y);
+            // console.log('ball.edge.x',ball.loc.x + ball.radius, ball.loc.x - ball.radius);
+            // console.log('brick[%d][%d]', r + 1, c + 1, bricks[r][c].x, bricks[r][c].y);
+            broken_bricks++;
+            return true;
+    }
+    return false;
+}
+
+function checkTopSide(r, c) {
+    if (ball.loc.y + ball.radius >= bricks[r][c].y &&
+        ball.loc.y + ball.radius < bricks[r][c].y + brick.thickness &&
+        ball.loc.x > bricks[r][c].x &&
+        ball.loc.x < bricks[r][c].x + brick.length) {
+            // if (bricks[r][c].property) {
+            //     setXflag();
+            // }
+            ball.loc.y = bricks[r][c].y - ball.radius;
+            ball.velocity.y *= -1;
+            bricks[r][c].isHit = true;
+            score++;
+            brickBall_coll.play();
+            // console.log('top');
+            // console.log('ball', ball.loc.x, ball.loc.y);
+            // console.log('ball.edge.y',ball.loc.y + ball.radius, ball.loc.y - ball.radius);
+            // console.log('brick[%d][%d]', r + 1, c + 1, bricks[r][c].x, bricks[r][c].y);
+            broken_bricks++;
+            return true;
+    }
+    return false;
 }
 
 // function setXflag(r, c) {

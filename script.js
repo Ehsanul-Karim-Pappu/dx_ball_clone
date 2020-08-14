@@ -36,7 +36,7 @@ let isPressed = false;
 let bricks = [];
 let level = 0;
 let total_bricks = 0, broken_bricks = 0;
-let life = 5;  //also change the value at function.js at line 189
+let life = 5;  //also change the value at function.js in level_inc() function
 let lives = [];
 let tmp = 0;
 let score = 0;
@@ -72,7 +72,7 @@ function setup() {
 function draw() {
     background(220);
     tmp++;
-    if (tmp <= 10) {
+    if (tmp <= 650) {
         printInstruction();
     }
     else {
@@ -89,7 +89,6 @@ function draw() {
             }
             else {
                 ball.reset();
-                // sp = default_sp;
                 flag = true;
             }
         }
