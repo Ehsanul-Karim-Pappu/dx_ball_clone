@@ -1,11 +1,11 @@
 class Bar {
     constructor() {
-        this.length = 150;
+        this.length = default_bar_length;
         this.thickness = 8;
         this.clearance = 4;
-        this.x;
+        this.x = null;
         this.y = height - (this.thickness + this.clearance);
-        this.mid;
+        this.mid = null;
     }
 
     show(xpos) {
@@ -29,10 +29,10 @@ class Bar {
 class Ball {
     constructor() {
         this.loc = new Vector(width / 2, height / 2);
-        this.radius = 10;
+        this.radius = default_ball_radius;
         this.velocity = new Vector(1, 1);
         this.velocity.setAngle(random(atan2(height, width) * 180 / Math.PI,
-            atan2(height, - width) * 180 / Math.PI));
+                                      atan2(height, - width) * 180 / Math.PI));
         this.drop_cnt = 0;
     }
 
@@ -73,9 +73,19 @@ class Ball {
 
     reset() {
         // console.log('reset');
+        this.radius = default_ball_radius;
         this.loc.x = bar.mid;
         this.loc.y = bar.y - this.radius;
-        if (this.velocity.y > 0) this.velocity.y *= -1;
+        if (this.velocity.y > 0) this.velocity.y *= -1; //nahole ball reset hoyar sathe sathe ekta drop khay
+    }
+
+    setloc(_x, _y) {
+        this.loc.x = _x;
+        this.loc.y = _y;
+    }
+    setRanAngleUpward() {
+        this.velocity.setAngle(random(atan2(- height, - width) * 180 / Math.PI,
+                                      atan2(- height, width) * 180 / Math.PI));
     }
 
     show() {
@@ -90,10 +100,11 @@ class Brick {
         this.y = _y;
         this.length = 60;
         this.thickness = 30;
-        this.hGap = 5;
-        this.vGap = 5;
-        this.isHit;
-        this.property = false;
+        this.hGap = 3;
+        this.vGap = 3;
+        this.isHit = null;;
+        this.property = null;
+        this.type = null;
     }
 
     show () {
@@ -112,5 +123,58 @@ class Brick {
 
     setProperty(val) {
         this.property = val;
+    }
+}
+
+class Power {
+    constructor(_x, _y, _power) {
+        this.x = _x;
+        this.y = _y;
+        this.thickness = 40;
+        this.length = 50;
+        this.yVelocity = 6  ;
+        this.img = null;
+        this.power = _power;
+    }
+
+    setImage() {
+        if (this.power == 'P') {
+            this.img = paddle_expansion;
+        }
+        else if (this.power == 'p') {
+            this.img = paddle_contraction;
+        }
+        else if (this.power == 'B') {
+            this.img = ball_expansion;
+        }
+        else if (this.power == 'b') {
+            this.img = ball_cotraction;
+        }
+        else if (this.power == '+') {
+            this.img = ball_plus_one;
+        }
+        else if (this.power == 'S') {
+            this.img = ball_speedUp;
+        }
+        else if (this.power == 's') {
+            this.img = ball_speedDown;
+        }
+        else if (this.power == 'X') {
+            this.img = skull;
+        }
+        else if (this.power == 'L') {
+            this.img = lifeUp;
+        }
+        else if (this.power == 'l') {
+            this.img = levelUp;
+        }
+    }
+
+    move () {
+        this.y += (this.yVelocity + level * 1);
+    }
+
+    show() {
+        image(this.img, this.x, this.y, this.length, this.thickness);
     }
 }

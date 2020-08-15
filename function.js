@@ -1,11 +1,21 @@
 function isFallen() {
-    if (ball.loc.y + ball.radius > bar.y) {
-        if (ball.loc.x + ball.radius < bar.mid - bar.length / 2 ||
-            ball.loc.x - ball.radius > bar.mid + bar.length / 2) {
-            life--;
-            loselife.play();
-            // console.log(life);
-            return true;
+    if (ball.length == 1) { //last ball
+        if (ball[0].loc.y + ball[0].radius > bar.y) {
+            if (ball[0].loc.x + ball[0].radius < bar.mid - bar.length / 2 ||
+                ball[0].loc.x - ball[0].radius > bar.mid + bar.length / 2) {
+                    life--;
+                    loselife.play();
+                    return true;
+            }
+        }
+    }
+    for (let i = 0; i < ball.length; i++) {
+        if (ball[i].loc.y + ball[i].radius > bar.y) {
+            if (ball[i].loc.x + ball[i].radius < bar.mid - bar.length / 2 ||
+                ball[i].loc.x - ball[i].radius > bar.mid + bar.length / 2) {
+                    ball.splice(i, 1);
+                    i--;
+            }
         }
     }
     return false;
@@ -22,8 +32,19 @@ function keyPressed() {
         broken_bricks = total_bricks;
         // level++;
         // brickArray(level);
-        ball.reset();
+        ball.splice(1, ball.length - 1);
+        ball[0].reset();
         console.log(level);
+    }
+
+    if (keyCode == LEFT_ARROW) {
+        ball.push(new Ball());
+        ball[ball.length - 1].setloc(ball[0].loc.x, ball[0].loc.y);
+        ball[ball.length - 1].setRanAngleUpward();
+    }
+
+    if (keyCode == 13) {
+        tmp = 900;
     }
 
     // if (keyCode == LEFT_ARROW) {
@@ -64,58 +85,65 @@ function brickShow(level) {
 }
 
 function brick_ballColl() {
-    let break_flag = false;
-    let past_loc = new Vector();
-    past_loc = ball.loc.subtract(ball.velocity);
-    for (let r  = bricks.length - 1; r >= 0; r --) {
-        for (let c = bricks[r].length - 1; c >= 0; c--) {
-            if (levels[level].color[r][c] != ' ' && !bricks[r][c].isHit) {
-                if (ball.loc.x >= past_loc.x && ball.loc.y <= past_loc.y) { // going upward right
-                    if (checkLeftSide(r, c) || checkBottomSide(r, c)) {
-                        break_flag = true;
+    for (let i = 0; i < ball.length; i++) {
+        let break_flag = false;
+        let past_loc = new Vector();
+        past_loc = ball[i].loc.subtract(ball[i].velocity);
+        for (let r  = bricks.length - 1; r >= 0; r --) {
+            for (let c = bricks[r].length - 1; c >= 0; c--) {
+                if (levels[level].color[r][c] != ' ' && !bricks[r][c].isHit) {
+                    if (ball[i].loc.x >= past_loc.x && ball[i].loc.y <= past_loc.y) { // going upward right
+                        if (checkLeftSide(i, r, c) || checkBottomSide(i, r, c)) {
+                            break_flag = true;
+                            break;
+                        }
                     }
-                }
-                if (ball.loc.x <= past_loc.x && ball.loc.y <= past_loc.y) { // going upward left
-                    if (checkRightSide(r, c) || checkBottomSide(r, c)) {
-                        break_flag = true;
+                    if (ball[i].loc.x <= past_loc.x && ball[i].loc.y <= past_loc.y) { // going upward left
+                        if (checkRightSide(i, r, c) || checkBottomSide(i, r, c)) {
+                            break_flag = true;
+                            break;
+                        }
                     }
-                }
-                if (ball.loc.x >= past_loc.x && ball.loc.y >= past_loc.y) { // going downward right
-                    if (checkLeftSide(r, c) || checkTopSide(r, c)) {
-                        break_flag = true;
+                    if (ball[i].loc.x >= past_loc.x && ball[i].loc.y >= past_loc.y) { // going downward right
+                        if (checkLeftSide(i, r, c) || checkTopSide(i, r, c)) {
+                            break_flag = true;
+                            break;
+                        }
                     }
-                }
-                if (ball.loc.x <= past_loc.x && ball.loc.y >= past_loc.y) { // going downward left
-                    if (checkRightSide(r, c) || checkTopSide(r, c)) {
-                        break_flag = true;
+                    if (ball[i].loc.x <= past_loc.x && ball[i].loc.y >= past_loc.y) { // going downward left
+                        if (checkRightSide(i, r, c) || checkTopSide(i, r, c)) {
+                            break_flag = true;
+                            break;
+                        }
                     }
                 }
             }
-        }
-        if (break_flag) {
-            break_flag = false;
-            break;
+            if (break_flag) {
+                break_flag = false;
+                break;
+            }
         }
     }
 }
 
 //checks every side of a brick
-function checkLeftSide(r, c) {
-    if (ball.loc.x + ball.radius >= bricks[r][c].x &&
-        ball.loc.x + ball.radius < bricks[r][c].x + brick.length / 2 &&
-        ball.loc.y > bricks[r][c].y &&
-        ball.loc.y < bricks[r][c].y + brick.thickness) {
-            // if (bricks[r][c].property) {
-            //     setXflag();
-            // }
-            ball.loc.x = bricks[r][c].x - ball.radius;
-            ball.velocity.x *= -1;
+function checkLeftSide(i, r, c) {
+    if (ball[i].loc.x + ball[i].radius >= bricks[r][c].x &&
+        ball[i].loc.x + ball[i].radius < bricks[r][c].x + brick.length / 2 &&
+        ball[i].loc.y > bricks[r][c].y &&
+        ball[i].loc.y < bricks[r][c].y + brick.thickness) {
+            if (bricks[r][c].property) {
+                powers.push(new Power(bricks[r][c].x, bricks[r][c].y, bricks[r][c].property));
+                powers[powers.length - 1].setImage();
+            }
+            ball[i].loc.x = bricks[r][c].x - ball[i].radius;
+            ball[i].velocity.x *= -1;
             bricks[r][c].isHit = true;
             score++;
             brickBall_coll.play();
             // console.log('left');
-            // console.log('ball', ball.loc.x, ball.loc.y);
-            // console.log('ball.edge.x',ball.loc.x + ball.radius, ball.loc.x - ball.radius);
+            // console.log('ball[i]', ball[i].loc.x, ball[i].loc.y);
+            // console.log('ball[i].edge.x',ball[i].loc.x + ball[i].radius, ball[i].loc.x - ball[i].radius);
             // console.log('brick[%d][%d]', r + 1, c + 1, bricks[r][c].x, bricks[r][c].y);
             broken_bricks++;
             return true;
@@ -123,22 +151,23 @@ function checkLeftSide(r, c) {
     return false;
 }
 
-function checkBottomSide(r, c) {
-    if (ball.loc.y - ball.radius <= bricks[r][c].y + brick.thickness &&
-        ball.loc.y - ball.radius > bricks[r][c].y &&
-        ball.loc.x > bricks[r][c].x &&
-        ball.loc.x < bricks[r][c].x + brick.length) {
-            // if (bricks[r][c].property) {
-            //     setXflag(r, c);
-            // }
-            ball.loc.y = bricks[r][c].y + brick.thickness + ball.radius;
-            ball.velocity.y *= -1;
+function checkBottomSide(i, r, c) {
+    if (ball[i].loc.y - ball[i].radius <= bricks[r][c].y + brick.thickness &&
+        ball[i].loc.y - ball[i].radius > bricks[r][c].y &&
+        ball[i].loc.x > bricks[r][c].x &&
+        ball[i].loc.x < bricks[r][c].x + brick.length) {
+            if (bricks[r][c].property) {
+                powers.push(new Power(bricks[r][c].x, bricks[r][c].y, bricks[r][c].property));
+                powers[powers.length - 1].setImage();
+            }
+            ball[i].loc.y = bricks[r][c].y + brick.thickness + ball[i].radius;
+            ball[i].velocity.y *= -1;
             bricks[r][c].isHit = true;
             score++;
             brickBall_coll.play();
             // console.log('bottom');
-            // console.log('ball', ball.loc.x, ball.loc.y);
-            // console.log('ball.edge.y',ball.loc.y + ball.radius, ball.loc.y - ball.radius);
+            // console.log('ball[i]', ball[i].loc.x, ball[i].loc.y);
+            // console.log('ball[i].edge.y',ball[i].loc.y + ball[i].radius, ball[i].loc.y - ball[i].radius);
             // console.log('brick[%d][%d]', r + 1, c + 1, bricks[r][c].x, bricks[r][c].y);
             broken_bricks++;
             return true;
@@ -146,22 +175,23 @@ function checkBottomSide(r, c) {
     return false;
 }
 
-function checkRightSide(r, c) {
-    if (ball.loc.x - ball.radius <= bricks[r][c].x + brick.length &&
-        ball.loc.x - ball.radius > bricks[r][c].x + brick.length / 2 &&
-        ball.loc.y > bricks[r][c].y &&
-        ball.loc.y < bricks[r][c].y + brick.thickness) {
-            // if (bricks[r][c].property) {
-            //     setXflag();
-            // }
-            ball.loc.x = bricks[r][c].x + brick.length + ball.radius;
-            ball.velocity.x *= -1;
+function checkRightSide(i, r, c) {
+    if (ball[i].loc.x - ball[i].radius <= bricks[r][c].x + brick.length &&
+        ball[i].loc.x - ball[i].radius > bricks[r][c].x + brick.length / 2 &&
+        ball[i].loc.y > bricks[r][c].y &&
+        ball[i].loc.y < bricks[r][c].y + brick.thickness) {
+            if (bricks[r][c].property) {
+                powers.push(new Power(bricks[r][c].x, bricks[r][c].y, bricks[r][c].property));
+                powers[powers.length - 1].setImage();
+            }
+            ball[i].loc.x = bricks[r][c].x + brick.length + ball[i].radius;
+            ball[i].velocity.x *= -1;
             bricks[r][c].isHit = true;
             score++;
             brickBall_coll.play();
             // console.log('right');
-            // console.log('ball', ball.loc.x, ball.loc.y);
-            // console.log('ball.edge.x',ball.loc.x + ball.radius, ball.loc.x - ball.radius);
+            // console.log('ball[i]', ball[i].loc.x, ball[i].loc.y);
+            // console.log('ball[i].edge.x',ball[i].loc.x + ball[i].radius, ball[i].loc.x - ball[i].radius);
             // console.log('brick[%d][%d]', r + 1, c + 1, bricks[r][c].x, bricks[r][c].y);
             broken_bricks++;
             return true;
@@ -169,22 +199,23 @@ function checkRightSide(r, c) {
     return false;
 }
 
-function checkTopSide(r, c) {
-    if (ball.loc.y + ball.radius >= bricks[r][c].y &&
-        ball.loc.y + ball.radius < bricks[r][c].y + brick.thickness &&
-        ball.loc.x > bricks[r][c].x &&
-        ball.loc.x < bricks[r][c].x + brick.length) {
-            // if (bricks[r][c].property) {
-            //     setXflag();
-            // }
-            ball.loc.y = bricks[r][c].y - ball.radius;
-            ball.velocity.y *= -1;
+function checkTopSide(i, r, c) {
+    if (ball[i].loc.y + ball[i].radius >= bricks[r][c].y &&
+        ball[i].loc.y + ball[i].radius < bricks[r][c].y + brick.thickness &&
+        ball[i].loc.x > bricks[r][c].x &&
+        ball[i].loc.x < bricks[r][c].x + brick.length) {
+            if (bricks[r][c].property) {
+                powers.push(new Power(bricks[r][c].x, bricks[r][c].y, bricks[r][c].property));
+                powers[powers.length - 1].setImage();
+            }
+            ball[i].loc.y = bricks[r][c].y - ball[i].radius;
+            ball[i].velocity.y *= -1;
             bricks[r][c].isHit = true;
             score++;
             brickBall_coll.play();
             // console.log('top');
-            // console.log('ball', ball.loc.x, ball.loc.y);
-            // console.log('ball.edge.y',ball.loc.y + ball.radius, ball.loc.y - ball.radius);
+            // console.log('ball[i]', ball[i].loc.x, ball[i].loc.y);
+            // console.log('ball[i].edge.y',ball[i].loc.y + ball[i].radius, ball[i].loc.y - ball[i].radius);
             // console.log('brick[%d][%d]', r + 1, c + 1, bricks[r][c].x, bricks[r][c].y);
             broken_bricks++;
             return true;
@@ -192,37 +223,81 @@ function checkTopSide(r, c) {
     return false;
 }
 
-//special bricks
-// function setXflag(r, c) {
-//     if (bricks[r][c].property == 'P') {
-//
-//     }
-//     if (bricks[r][c].property == 'p') {
-//
-//     }
-//     if (bricks[r][c].property == 'S') {
-//
-//     }
-//     if (bricks[r][c].property == 's') {
-//
-//     }
-//     if (bricks[r][c].property == 'X') {
-//
-//     }
-//     if (bricks[r][c].property == 'l') {
-//
-//     }
-//     if (bricks[r][c].property == 'L') {
-//
-//     }
-// }
+function check_powerBar_coll() {
+    for (let i = 0; i < powers.length; i++) {
+        if (powers[i].y + powers[i].thickness >= bar.y &&
+            // powers[i].y + powers[i].thickness <= bar.y + bar.thickness &&
+            powers[i].x + powers[i].length > bar.mid - bar.length / 2 &&
+            powers[i].x < bar.mid + bar.length / 2) {
+                let p = powers[i].power;
+                powers.splice(i, 1);
+                i--;
+                return p;
+        }
+        if (powers[i].y > height){
+            powers.splice(i, 1);
+            i--;
+        }
+    }
+}
+
+function doSomething(value) {
+    if (value == 'P') {
+        if (bar.length < 400) {
+            bar.length += 50;
+        }
+    }
+    else if (value == 'p') {
+        if (bar.length > 50) {
+            bar.length -= 50;
+        }
+    }
+    else if (value == 'B') {
+        for (let i = 0; i < ball.length; i++) {
+            ball[i].radius = 20;
+        }
+    }
+    else if (value == 'b') {
+        for (let i = 0; i < ball.length; i++) {
+            ball[i].radius = 7;
+        }
+    }
+    else if (value == '+') {
+        ball.push(new Ball());
+        ball[ball.length - 1].setloc(ball[0].loc.x, ball[0].loc.y);
+        ball[ball.length - 1].setRanAngleUpward();
+    }
+    else if (value == 'S') {
+        if (sp < 14) {
+            sp += 3;
+        }
+    }
+    else if (value == 's') {
+        if (sp > 3) {
+            sp -= 3;
+        }
+    }
+    else if (value == 'X') {
+        flag = true;
+        life--;
+        ball.splice(1, ball.length - 1);
+        ball[0].reset();
+        loselife.play();
+    }
+    else if (value == 'L') {
+        if (life < 10){
+            life++;
+        }
+    }
+    else if (value == 'l') {
+        broken_bricks = total_bricks;
+        ball.splice(1, ball.length - 1);
+        ball[0].reset();
+    }
+}
 
 function sp_inc(_sp) {
-    // if (ball.drop_cnt == 5) {
-        ball.drop_cnt = 0;
-        return _sp += 3;
-    // }
-    // return _sp;
+    return _sp = default_sp + level * 3;
 }
 
 function totalBricks(level) {
@@ -248,7 +323,9 @@ function level_inc(_level) {
         brickArray(_level);
         broken_bricks = 0;
         total_bricks = totalBricks(_level);
-        ball.reset();
+        ball.splice(1, ball.length - 1);
+        ball[0].reset();
+        bar.length = default_bar_length;
         levelup.play();
         flg = true;
         // debugger;
@@ -267,7 +344,7 @@ function level_inc(_level) {
 function checkWon(_level) {
     if (_level == levels.length) {
         victory.play();
-        _level = 3;
+        _level = levels.length - 1;
         fill(0);
         textAlign(CENTER);
         textSize(30);
@@ -317,13 +394,39 @@ function score_life() {
 function printInstruction() {
     fill(0);
     textAlign(CENTER);
-    textSize(30);
-    text("Instructions", width / 2, height / 2 - 100);
+    textSize(45);
+    text("Instructions", width / 2, 50);
     textAlign(LEFT);
-    textSize(20);
-    text("* To move the paddle, use the mouse.", width / 2 - 500, height / 2 - 70);
-    text("* The ball will appear in the middle of the canvas at the beginning and start moving downwards in a random direction.", width / 2 - 500, height / 2 - 40);
-    text("* You will have 5 lives at each level and each time the ball has fallen, you will lose a life.", width / 2 - 500, height / 2 - 10);
-    text("* There are four levels. The speed of the ball will increase as the level increases.", width / 2 - 500, height / 2 + 20);
-    text("* Press 'LEFT-ARROW' key to move to next level", width / 2 - 500, height / 2 + 50);
+    textSize(23);
+    text("* Press 'ENTER' to skip", 20, 100);
+    text("* To move the paddle, use the mouse.", 20, 130);
+    text("* The ball will appear in the middle of the canvas at the beginning and start moving downwards in a random direction.", 20, 160);
+    text("* Player will have 5 lives at each level and each time the ball has fallen, player will lose a life.", 20, 190);
+    text("* There are four levels. The speed of the ball will increase as the level increases.", 20, 220);
+    text("* There are also some Power-Ups. This Power-Ups will appear randomly when a brick is being broken", 20, 250);
+    text("* Player can catch or avoid the Power-Ups with the paddle. Effects of different Power-Ups are described below.", 20, 280);
+    image(paddle_expansion,20, 310, 70, 60);
+    image(paddle_contraction,140, 310, 70, 60);
+    image(ball_cotraction,260, 310, 70, 60);
+    image(ball_expansion,380, 310, 70, 60);
+    image(ball_plus_one,500, 310, 70, 60);
+    image(ball_speedUp,620, 310, 70, 60);
+    image(ball_speedDown,740, 310, 70, 60);
+    image(skull,860, 310, 70, 60);
+    image(lifeUp,980, 310, 70, 60);
+    image(levelUp,1100, 310, 70, 60);
+    textSize(17);
+    textAlign(CENTER);
+    text("paddle",55,390); text("expansion", 55, 410);
+    text("paddle",175,390); text("contraction", 175, 410);
+    text("decrease",295,390); text("ball size", 295, 410);
+    text("increase",415,390); text("ball size", 415, 410);
+    text("add",535,390); text("one ball", 535, 410);
+    text("increase ball",655,390); text("velocity", 655, 410);
+    text("decrease ball",775,390); text("velocity", 775, 410);
+    text("lose",895,390); text("one life", 895, 410);
+    text("gain",1015,390); text("one life", 1015, 410);
+    text("go to",1135,390); text("next level", 1135, 410);
+    textAlign(LEFT);
+    text("* Press 'LEFT-ARROW' key to move to next level (NOT RECOMMENDED)", 20, 450);
 }
