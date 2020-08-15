@@ -14,12 +14,10 @@ class Bar {
         if (this.x <= 0) {
             rect(0, this.y, this.length, this.thickness, 20); //edge condition
             this.mid = this.length / 2;
-        }
-        else if (this.x + this.length >= width) {
+        } else if (this.x + this.length >= width) {
             rect(width - this.length, this.y, this.length, this.thickness, 20); //edge condition
             this.mid = width - this.length / 2;
-        }
-        else {
+        } else {
             rect(this.x, this.y, this.length, this.thickness, 20); //normal condition
             this.mid = xpos;
         }
@@ -31,8 +29,12 @@ class Ball {
         this.loc = new Vector(width / 2, height / 2);
         this.radius = default_ball_radius;
         this.velocity = new Vector(1, 1);
-        this.velocity.setAngle(random(atan2(height, width) * 180 / Math.PI,
-                                      atan2(height, - width) * 180 / Math.PI));
+        this.velocity.setAngle(
+            random(
+                (atan2(height, width) * 180) / Math.PI,
+                (atan2(height, -width) * 180) / Math.PI
+            )
+        );
         this.drop_cnt = 0;
     }
 
@@ -56,12 +58,19 @@ class Ball {
             wallBall_coll.play();
         }
         // drop
-        if ((this.loc.x + this.radius > bar.mid - bar.length / 2) &&
-            (this.loc.x - this.radius < bar.mid + bar.length / 2)) {
+        if (
+            this.loc.x + this.radius > bar.mid - bar.length / 2 &&
+            this.loc.x - this.radius < bar.mid + bar.length / 2
+        ) {
             if (this.loc.y + this.radius > bar.y) {
                 this.loc.y = bar.y - this.radius;
-                let angle = map(this.loc.x, bar.mid - bar.length / 2, bar.mid + bar.length / 2,
-                    atan2(- height, - width) * 180 / Math.PI, atan2(- height, width) * 180 / Math.PI)
+                let angle = map(
+                    this.loc.x,
+                    bar.mid - bar.length / 2,
+                    bar.mid + bar.length / 2,
+                    (atan2(-height, -width) * 180) / Math.PI,
+                    (atan2(-height, width) * 180) / Math.PI
+                );
                 this.velocity.setAngle(angle);
                 this.drop_cnt++;
                 paddleBall_coll.play();
@@ -84,8 +93,12 @@ class Ball {
         this.loc.y = _y;
     }
     setRanAngleUpward() {
-        this.velocity.setAngle(random(atan2(- height, - width) * 180 / Math.PI,
-                                      atan2(- height, width) * 180 / Math.PI));
+        this.velocity.setAngle(
+            random(
+                (atan2(-height, -width) * 180) / Math.PI,
+                (atan2(-height, width) * 180) / Math.PI
+            )
+        );
     }
 
     show() {
@@ -102,12 +115,12 @@ class Brick {
         this.thickness = 30;
         this.hGap = 3;
         this.vGap = 3;
-        this.isHit = null;;
+        this.isHit = null;
         this.property = null;
         this.type = null;
     }
 
-    show () {
+    show() {
         this.setColor();
         rect(this.x, this.y, this.length, this.thickness, 3);
     }
@@ -132,7 +145,7 @@ class Power {
         this.y = _y;
         this.thickness = 40;
         this.length = 50;
-        this.yVelocity = 6  ;
+        this.yVelocity = 6;
         this.img = null;
         this.power = _power;
     }
@@ -140,38 +153,29 @@ class Power {
     setImage() {
         if (this.power == 'P') {
             this.img = paddle_expansion;
-        }
-        else if (this.power == 'p') {
+        } else if (this.power == 'p') {
             this.img = paddle_contraction;
-        }
-        else if (this.power == 'B') {
+        } else if (this.power == 'B') {
             this.img = ball_expansion;
-        }
-        else if (this.power == 'b') {
+        } else if (this.power == 'b') {
             this.img = ball_cotraction;
-        }
-        else if (this.power == '+') {
+        } else if (this.power == '+') {
             this.img = ball_plus_one;
-        }
-        else if (this.power == 'S') {
+        } else if (this.power == 'S') {
             this.img = ball_speedUp;
-        }
-        else if (this.power == 's') {
+        } else if (this.power == 's') {
             this.img = ball_speedDown;
-        }
-        else if (this.power == 'X') {
+        } else if (this.power == 'X') {
             this.img = skull;
-        }
-        else if (this.power == 'L') {
+        } else if (this.power == 'L') {
             this.img = lifeUp;
-        }
-        else if (this.power == 'l') {
+        } else if (this.power == 'l') {
             this.img = levelUp;
         }
     }
 
-    move () {
-        this.y += (this.yVelocity + level * 1);
+    move() {
+        this.y += this.yVelocity + level * 1;
     }
 
     show() {

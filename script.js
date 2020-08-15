@@ -1,6 +1,3 @@
-
-
-
 /*****************************************************************************
 ******************************************************************************
        ____                 _               _      _____ _
@@ -23,12 +20,8 @@
 *****************************************************************************
 *****************************************************************************/
 
-
-
-
-
-
-let bar = null, ball = [];
+let bar = null,
+    ball = [];
 let flag = null;
 let default_sp = 5;
 let default_ball_radius = 10;
@@ -37,22 +30,40 @@ let sp = default_sp;
 let isPressed = false;
 let bricks = [];
 let level = 0;
-let total_bricks = 0, broken_bricks = 0;
-let life = 5;  //also change the value at function.js in level_inc() function
+let total_bricks = 0,
+    broken_bricks = 0;
+let life = 5; //also change the value at function.js in level_inc() function
 let lives = [];
 let tmp = 0;
 let score = 0;
 let powers = [];
-let brickBall_coll, wallBall_coll, paddleBall_coll, levelup, loselife, gameover, victory;
-let ball_contraction, ball_expansion, ball_plus_one, ball_speedDown, ball_speedUp, levelUp, lifeUp, paddle_contraction, paddle_expansion, skull;
+let brickBall_coll,
+    wallBall_coll,
+    paddleBall_coll,
+    levelup,
+    loselife,
+    gameover,
+    victory;
+let ball_contraction,
+    ball_expansion,
+    ball_plus_one,
+    ball_speedDown,
+    ball_speedUp,
+    levelUp,
+    lifeUp,
+    paddle_contraction,
+    paddle_expansion,
+    skull,
+    powerup;
 
 function preload() {
     //loads the sound tracks
     brickBall_coll = loadSound('assets/sound/brickball.mp3');
     wallBall_coll = loadSound('assets/sound/wallball.mp3');
-    paddleBall_coll = loadSound('assets/sound/paddleball.mp3')
+    paddleBall_coll = loadSound('assets/sound/paddleball.mp3');
     levelup = loadSound('assets/sound/levelup.mp3');
     loselife = loadSound('assets/sound/loselife.mp3');
+    powerup = loadSound('assets/sound/powerup.mp3');
     gameover = loadSound('assets/sound/gameover.mp3');
     victory = loadSound('assets/sound/victory.mp3');
 
@@ -69,7 +80,7 @@ function preload() {
     levelUp = loadImage('assets/image/levelUp(1).png');
 }
 function setup() {
-    createCanvas(1250, 500);
+    createCanvas(1215, 500);
     bar = new Bar();
     ball.push(new Ball());
     brick = new Brick(0, 0);
@@ -82,9 +93,7 @@ function draw() {
     tmp++;
     if (tmp <= 2500) {
         printInstruction();
-        // noLoop();
-    }
-    else {
+    } else {
         if (life == 0) gameOver();
         level = level_inc(level);
         brickShow(level);
@@ -97,15 +106,13 @@ function draw() {
                 for (let i = 0; i < ball.length; i++) {
                     ball[i].move(sp);
                 }
-            }
-            else {
+            } else {
                 ball[0].reset();
                 sp = default_sp + level * 3;
                 bar.length = default_bar_length;
                 flag = true;
             }
-        }
-        else {
+        } else {
             for (let i = 0; i < ball.length; i++) {
                 ball[i].move(sp);
             }
@@ -115,7 +122,7 @@ function draw() {
             ball[i].show();
         }
         score_life();
-        if(powers.length != 0) {
+        if (powers.length != 0) {
             for (let i = 0; i < powers.length; i++) {
                 powers[i].move();
                 powers[i].show();
