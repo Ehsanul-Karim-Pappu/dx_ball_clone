@@ -37,13 +37,7 @@ let lives = [];
 let tmp = 0;
 let score = 0;
 let powers = [];
-let brickBall_coll,
-    wallBall_coll,
-    paddleBall_coll,
-    levelup,
-    loselife,
-    gameover,
-    victory;
+let brickBall_coll, wallBall_coll, paddleBall_coll, levelup, loselife, gameover, victory;
 let ball_contraction,
     ball_expansion,
     ball_plus_one,
@@ -68,16 +62,16 @@ function preload() {
     victory = loadSound('assets/sound/victory.mp3');
 
     //loads images
-    paddle_expansion = loadImage('assets/image/paddle_expansion.png');
-    paddle_contraction = loadImage('assets/image/paddle_contraction.png');
-    ball_cotraction = loadImage('assets/image/ball_contraction.png');
-    ball_expansion = loadImage('assets/image/ball_expansion.png');
-    ball_plus_one = loadImage('assets/image/ball_plus_one.png');
-    ball_speedUp = loadImage('assets/image/ball_speedUp.png');
-    ball_speedDown = loadImage('assets/image/ball_speedDown.png');
+    paddle_expansion = loadImage('assets/image/expansion.png');
+    paddle_contraction = loadImage('assets/image/contraction.png');
+    ball_cotraction = loadImage('assets/image/small_ball.png');
+    ball_expansion = loadImage('assets/image/big_ball.png');
+    ball_plus_one = loadImage('assets/image/two_ball.png');
+    ball_speedUp = loadImage('assets/image/speedUp.png');
+    ball_speedDown = loadImage('assets/image/speeddown.png');
     skull = loadImage('assets/image/skull.png');
-    lifeUp = loadImage('assets/image/lifeUp.png');
-    levelUp = loadImage('assets/image/levelUp(1).png');
+    lifeUp = loadImage('assets/image/oneup.png');
+    levelUp = loadImage('assets/image/levelUp.png');
 }
 function setup() {
     createCanvas(1215, 500);

@@ -1,5 +1,3 @@
-
-
 /*****************************************************************************
 ******************************************************************************
        ____                 _               _      _____ _
@@ -21,8 +19,6 @@
 
 *****************************************************************************
 *****************************************************************************/
-
-
 
 /*************************************************************
 ******Which symbol indicates What:******
@@ -48,7 +44,6 @@
 'c' = cyan
 **************************************************************/
 
-
 let levels = [
     // {   //demo level
     //     extra: [
@@ -66,82 +61,85 @@ let levels = [
     //         "mmmmmmmmmmmmmmmmmmm"
     //     ]
     // },
-    {   //level 0
+    {
+        //level 0
         extra: [
-            ". . b . . . . l . .",
-            " . . . . . X . . . ",
-            ". p . . L . . . + .",
-            " . . . . . S . P . ",
-            ". . B . . . . L . ."
+            '. . b . . . . l . .',
+            ' . . . . . X . . . ',
+            '. p . . L . . . + .',
+            ' . . . . . S . P . ',
+            '. . B . . . . L . .',
         ],
         color: [
-            "r g b y m c r g b y",
-            " r g b y m c r g b ",
-            "c r g b y m c r g b",
-            " c r g b y m c r g ",
-            "m c r g b y m c r g"
-        ]
+            'r g b y m c r g b y',
+            ' r g b y m c r g b ',
+            'c r g b y m c r g b',
+            ' c r g b y m c r g ',
+            'm c r g b y m c r g',
+        ],
     },
 
-    {   //level 1
+    {
+        //level 1
         extra: [
-            " ...L....b...X..l. ",
-            " .   ...X..L..   . ",
-            " L .  p....+.  . X ",
-            " . .   B.l..   . . ",
-            " .s.    ...    ..S ",
-            "         P         "
+            ' ...L....b...X..l. ',
+            ' .   ...X..L..   . ',
+            ' L .  p....+.  . X ',
+            ' . .   B.l..   . . ',
+            ' .s.    ...    ..S ',
+            '         P         ',
         ],
         color: [
-            " bbbbbbbbbbbbbbbbb ",
-            " b   rrrrrrrrr   b ",
-            " b b  ggggggg  b b ",
-            " b b   yyyyy   b b ",
-            " bbb    ccc    bbb ",
-            "         m         "
-        ]
+            ' bbbbbbbbbbbbbbbbb ',
+            ' b   rrrrrrrrr   b ',
+            ' b b  ggggggg  b b ',
+            ' b b   yyyyy   b b ',
+            ' bbb    ccc    bbb ',
+            '         m         ',
+        ],
     },
 
-    {   //level 2
+    {
+        //level 2
         extra: [
-            "       l..b.       ",
-            "      ...L...      ",
-            "     ..B....l.     ",
-            "    ..X..l...S.    ",
-            "   .+..s...L....   ",
-            " ..X....L....X...P "
+            '       l..b.       ',
+            '      ...L...      ',
+            '     ..B....l.     ',
+            '    ..X..l...S.    ',
+            '   .+..s...L....   ',
+            ' ..X....L....X...P ',
         ],
         color: [
-            "      grbmbrg      ",
-            "     grbmcmbrg     ",
-            "    grbmcrcmbrg    ",
-            "   grbmcrbrcmbrg   ",
-            "  grbmcrbmbrcmbrg  ",
-            " grbmcrbmgmbrcmbrg "
-        ]
+            '      grbmbrg      ',
+            '     grbmcmbrg     ',
+            '    grbmcrcmbrg    ',
+            '   grbmcrbrcmbrg   ',
+            '  grbmcrbmbrcmbrg  ',
+            ' grbmcrbmgmbrcmbrg ',
+        ],
     },
 
-    {   //level 3
+    {
+        //level 3
         extra: [
-            "L.+ .s. ..L .X. . p",
-            ". . . . . . . . . .",
-            "P.. .X. .+. .L. . X",
-            ".   . . .   .   + .",
-            "B   + . L   P   .s."
+            'L.+ .s. ..L .X. . p',
+            '. . . . . . . . . .',
+            'P.. .X. .+. .L. . X',
+            '.   . . .   .   + .',
+            'B   + . L   P   .s.',
         ],
         color: [
-            "rrr ggg bbb ccc y y",
-            "r r g g b b c c y y",
-            "rrr ggg bbb ccc y y",
-            "r   g g b   c   y y",
-            "r   g g b   c   yyy"
-        ]
-    }
-]
+            'rrr ggg bbb ccc y y',
+            'r r g g b b c c y y',
+            'rrr ggg bbb ccc y y',
+            'r   g g b   c   y y',
+            'r   g g b   c   yyy',
+        ],
+    },
+];
 
-
-
-let bar = null, ball = [];
+let bar = null,
+    ball = [];
 let flag = null;
 let default_sp = 5;
 let default_ball_radius = 10;
@@ -150,20 +148,30 @@ let sp = default_sp;
 let isPressed = false;
 let bricks = [];
 let level = 0;
-let total_bricks = 0, broken_bricks = 0;
-let life = 5;  //also change the value at function.js in level_inc() function
+let total_bricks = 0,
+    broken_bricks = 0;
+let life = 5; //also change the value at function.js in level_inc() function
 let lives = [];
 let tmp = 0;
 let score = 0;
 let powers = [];
 let brickBall_coll, wallBall_coll, paddleBall_coll, levelup, loselife, gameover, victory;
-let ball_contraction, ball_expansion, ball_plus_one, ball_speedDown, ball_speedUp, levelUp, lifeUp, paddle_contraction, paddle_expansion, skull;
+let ball_contraction,
+    ball_expansion,
+    ball_plus_one,
+    ball_speedDown,
+    ball_speedUp,
+    levelUp,
+    lifeUp,
+    paddle_contraction,
+    paddle_expansion,
+    skull;
 
 function preload() {
     //loads the sound tracks
     brickBall_coll = loadSound('assets/sound/brickball.mp3');
     wallBall_coll = loadSound('assets/sound/wallball.mp3');
-    paddleBall_coll = loadSound('assets/sound/paddleball.mp3')
+    paddleBall_coll = loadSound('assets/sound/paddleball.mp3');
     levelup = loadSound('assets/sound/levelup.mp3');
     loselife = loadSound('assets/sound/loselife.mp3');
     gameover = loadSound('assets/sound/gameover.mp3');
@@ -196,8 +204,7 @@ function draw() {
     if (tmp <= 900) {
         printInstruction();
         // noLoop();
-    }
-    else {
+    } else {
         if (life == 0) gameOver();
         level = level_inc(level);
         brickShow(level);
@@ -210,15 +217,13 @@ function draw() {
                 for (let i = 0; i < ball.length; i++) {
                     ball[i].move(sp);
                 }
-            }
-            else {
+            } else {
                 ball[0].reset();
                 sp = default_sp + level * 3;
                 bar.length = default_bar_length;
                 flag = true;
             }
-        }
-        else {
+        } else {
             for (let i = 0; i < ball.length; i++) {
                 ball[i].move(sp);
             }
@@ -228,7 +233,7 @@ function draw() {
             ball[i].show();
         }
         score_life();
-        if(powers.length != 0) {
+        if (powers.length != 0) {
             for (let i = 0; i < powers.length; i++) {
                 powers[i].move();
                 powers[i].show();
@@ -237,8 +242,6 @@ function draw() {
         }
     }
 }
-
-
 
 class Bar {
     constructor() {
@@ -256,12 +259,10 @@ class Bar {
         if (this.x <= 0) {
             rect(0, this.y, this.length, this.thickness, 20); //edge condition
             this.mid = this.length / 2;
-        }
-        else if (this.x + this.length >= width) {
+        } else if (this.x + this.length >= width) {
             rect(width - this.length, this.y, this.length, this.thickness, 20); //edge condition
             this.mid = width - this.length / 2;
-        }
-        else {
+        } else {
             rect(this.x, this.y, this.length, this.thickness, 20); //normal condition
             this.mid = xpos;
         }
@@ -273,8 +274,9 @@ class Ball {
         this.loc = new Vector(width / 2, height / 2);
         this.radius = default_ball_radius;
         this.velocity = new Vector(1, 1);
-        this.velocity.setAngle(random(atan2(height, width) * 180 / Math.PI,
-                                      atan2(height, - width) * 180 / Math.PI));
+        this.velocity.setAngle(
+            random((atan2(height, width) * 180) / Math.PI, (atan2(height, -width) * 180) / Math.PI)
+        );
         this.drop_cnt = 0;
     }
 
@@ -297,12 +299,19 @@ class Ball {
             wallBall_coll.play();
         }
         // drop
-        if ((this.loc.x + this.radius > bar.mid - bar.length / 2) &&
-            (this.loc.x - this.radius < bar.mid + bar.length / 2)) {
+        if (
+            this.loc.x + this.radius > bar.mid - bar.length / 2 &&
+            this.loc.x - this.radius < bar.mid + bar.length / 2
+        ) {
             if (this.loc.y + this.radius > bar.y) {
                 this.loc.y = bar.y - this.radius;
-                let angle = map(this.loc.x, bar.mid - bar.length / 2, bar.mid + bar.length / 2,
-                    atan2(- height, - width) * 180 / Math.PI, atan2(- height, width) * 180 / Math.PI)
+                let angle = map(
+                    this.loc.x,
+                    bar.mid - bar.length / 2,
+                    bar.mid + bar.length / 2,
+                    (atan2(-height, -width) * 180) / Math.PI,
+                    (atan2(-height, width) * 180) / Math.PI
+                );
                 this.velocity.setAngle(angle);
                 this.drop_cnt++;
                 paddleBall_coll.play();
@@ -324,8 +333,12 @@ class Ball {
         this.loc.y = _y;
     }
     setRanAngleUpward() {
-        this.velocity.setAngle(random(atan2(- height, - width) * 180 / Math.PI,
-                                      atan2(- height, width) * 180 / Math.PI));
+        this.velocity.setAngle(
+            random(
+                (atan2(-height, -width) * 180) / Math.PI,
+                (atan2(-height, width) * 180) / Math.PI
+            )
+        );
     }
 
     show() {
@@ -342,11 +355,11 @@ class Brick {
         this.thickness = 30;
         this.hGap = 3;
         this.vGap = 3;
-        this.isHit = null;;
+        this.isHit = null;
         this.property = null;
     }
 
-    show () {
+    show() {
         this.setColor();
         rect(this.x, this.y, this.length, this.thickness, 3);
     }
@@ -371,7 +384,7 @@ class Power {
         this.y = _y;
         this.thickness = 40;
         this.length = 50;
-        this.yVelocity = 6  ;
+        this.yVelocity = 6;
         this.img = null;
         this.power = _power;
     }
@@ -379,38 +392,29 @@ class Power {
     setImage() {
         if (this.power == 'P') {
             this.img = paddle_expansion;
-        }
-        else if (this.power == 'p') {
+        } else if (this.power == 'p') {
             this.img = paddle_contraction;
-        }
-        else if (this.power == 'B') {
+        } else if (this.power == 'B') {
             this.img = ball_expansion;
-        }
-        else if (this.power == 'b') {
+        } else if (this.power == 'b') {
             this.img = ball_cotraction;
-        }
-        else if (this.power == '+') {
+        } else if (this.power == '+') {
             this.img = ball_plus_one;
-        }
-        else if (this.power == 'S') {
+        } else if (this.power == 'S') {
             this.img = ball_speedUp;
-        }
-        else if (this.power == 's') {
+        } else if (this.power == 's') {
             this.img = ball_speedDown;
-        }
-        else if (this.power == 'X') {
+        } else if (this.power == 'X') {
             this.img = skull;
-        }
-        else if (this.power == 'L') {
+        } else if (this.power == 'L') {
             this.img = lifeUp;
-        }
-        else if (this.power == 'l') {
+        } else if (this.power == 'l') {
             this.img = levelUp;
         }
     }
 
-    move () {
-        this.y += (this.yVelocity + level * 1);
+    move() {
+        this.y += this.yVelocity + level * 1;
     }
 
     show() {
@@ -418,25 +422,28 @@ class Power {
     }
 }
 
-
-
 function isFallen() {
-    if (ball.length == 1) { //last ball
+    if (ball.length == 1) {
+        //last ball
         if (ball[0].loc.y + ball[0].radius > bar.y) {
-            if (ball[0].loc.x + ball[0].radius < bar.mid - bar.length / 2 ||
-                ball[0].loc.x - ball[0].radius > bar.mid + bar.length / 2) {
-                    life--;
-                    loselife.play();
-                    return true;
+            if (
+                ball[0].loc.x + ball[0].radius < bar.mid - bar.length / 2 ||
+                ball[0].loc.x - ball[0].radius > bar.mid + bar.length / 2
+            ) {
+                life--;
+                loselife.play();
+                return true;
             }
         }
     }
     for (let i = 0; i < ball.length; i++) {
         if (ball[i].loc.y + ball[i].radius > bar.y) {
-            if (ball[i].loc.x + ball[i].radius < bar.mid - bar.length / 2 ||
-                ball[i].loc.x - ball[i].radius > bar.mid + bar.length / 2) {
-                    ball.splice(i, 1);
-                    i--;
+            if (
+                ball[i].loc.x + ball[i].radius < bar.mid - bar.length / 2 ||
+                ball[i].loc.x - ball[i].radius > bar.mid + bar.length / 2
+            ) {
+                ball.splice(i, 1);
+                i--;
             }
         }
     }
@@ -483,7 +490,7 @@ function brickArray(level) {
 }
 
 function brickShow(level) {
-    for (let r  = 0; r < levels[level].color.length; r ++) {
+    for (let r = 0; r < levels[level].color.length; r++) {
         for (let c = 0; c < levels[level].color[r].length; c++) {
             if (levels[level].color[r][c] != ' ') {
                 if (!bricks[r][c].isHit) {
@@ -500,28 +507,32 @@ function brick_ballColl() {
         let break_flag = false;
         let past_loc = new Vector();
         past_loc = ball[i].loc.subtract(ball[i].velocity);
-        for (let r  = bricks.length - 1; r >= 0; r --) {
+        for (let r = bricks.length - 1; r >= 0; r--) {
             for (let c = bricks[r].length - 1; c >= 0; c--) {
                 if (levels[level].color[r][c] != ' ' && !bricks[r][c].isHit) {
-                    if (ball[i].loc.x >= past_loc.x && ball[i].loc.y <= past_loc.y) { // going upward right
+                    if (ball[i].loc.x >= past_loc.x && ball[i].loc.y <= past_loc.y) {
+                        // going upward right
                         if (checkLeftSide(i, r, c) || checkBottomSide(i, r, c)) {
                             break_flag = true;
                             break;
                         }
                     }
-                    if (ball[i].loc.x <= past_loc.x && ball[i].loc.y <= past_loc.y) { // going upward left
+                    if (ball[i].loc.x <= past_loc.x && ball[i].loc.y <= past_loc.y) {
+                        // going upward left
                         if (checkRightSide(i, r, c) || checkBottomSide(i, r, c)) {
                             break_flag = true;
                             break;
                         }
                     }
-                    if (ball[i].loc.x >= past_loc.x && ball[i].loc.y >= past_loc.y) { // going downward right
+                    if (ball[i].loc.x >= past_loc.x && ball[i].loc.y >= past_loc.y) {
+                        // going downward right
                         if (checkLeftSide(i, r, c) || checkTopSide(i, r, c)) {
                             break_flag = true;
                             break;
                         }
                     }
-                    if (ball[i].loc.x <= past_loc.x && ball[i].loc.y >= past_loc.y) { // going downward left
+                    if (ball[i].loc.x <= past_loc.x && ball[i].loc.y >= past_loc.y) {
+                        // going downward left
                         if (checkRightSide(i, r, c) || checkTopSide(i, r, c)) {
                             break_flag = true;
                             break;
@@ -539,97 +550,107 @@ function brick_ballColl() {
 
 //checks every side of a brick
 function checkLeftSide(i, r, c) {
-    if (ball[i].loc.x + ball[i].radius >= bricks[r][c].x &&
+    if (
+        ball[i].loc.x + ball[i].radius >= bricks[r][c].x &&
         ball[i].loc.x + ball[i].radius < bricks[r][c].x + brick.length / 2 &&
         ball[i].loc.y > bricks[r][c].y &&
-        ball[i].loc.y < bricks[r][c].y + brick.thickness) {
-            if (bricks[r][c].property) {
-                powers.push(new Power(bricks[r][c].x, bricks[r][c].y, bricks[r][c].property));
-                powers[powers.length - 1].setImage();
-            }
-            ball[i].loc.x = bricks[r][c].x - ball[i].radius;
-            ball[i].velocity.x *= -1;
-            bricks[r][c].isHit = true;
-            score++;
-            brickBall_coll.play();
-            broken_bricks++;
-            return true;
+        ball[i].loc.y < bricks[r][c].y + brick.thickness
+    ) {
+        if (bricks[r][c].property) {
+            powers.push(new Power(bricks[r][c].x, bricks[r][c].y, bricks[r][c].property));
+            powers[powers.length - 1].setImage();
+        }
+        ball[i].loc.x = bricks[r][c].x - ball[i].radius;
+        ball[i].velocity.x *= -1;
+        bricks[r][c].isHit = true;
+        score++;
+        brickBall_coll.play();
+        broken_bricks++;
+        return true;
     }
     return false;
 }
 
 function checkBottomSide(i, r, c) {
-    if (ball[i].loc.y - ball[i].radius <= bricks[r][c].y + brick.thickness &&
+    if (
+        ball[i].loc.y - ball[i].radius <= bricks[r][c].y + brick.thickness &&
         ball[i].loc.y - ball[i].radius > bricks[r][c].y &&
         ball[i].loc.x > bricks[r][c].x &&
-        ball[i].loc.x < bricks[r][c].x + brick.length) {
-            if (bricks[r][c].property) {
-                powers.push(new Power(bricks[r][c].x, bricks[r][c].y, bricks[r][c].property));
-                powers[powers.length - 1].setImage();
-            }
-            ball[i].loc.y = bricks[r][c].y + brick.thickness + ball[i].radius;
-            ball[i].velocity.y *= -1;
-            bricks[r][c].isHit = true;
-            score++;
-            brickBall_coll.play();
-            broken_bricks++;
-            return true;
+        ball[i].loc.x < bricks[r][c].x + brick.length
+    ) {
+        if (bricks[r][c].property) {
+            powers.push(new Power(bricks[r][c].x, bricks[r][c].y, bricks[r][c].property));
+            powers[powers.length - 1].setImage();
+        }
+        ball[i].loc.y = bricks[r][c].y + brick.thickness + ball[i].radius;
+        ball[i].velocity.y *= -1;
+        bricks[r][c].isHit = true;
+        score++;
+        brickBall_coll.play();
+        broken_bricks++;
+        return true;
     }
     return false;
 }
 
 function checkRightSide(i, r, c) {
-    if (ball[i].loc.x - ball[i].radius <= bricks[r][c].x + brick.length &&
+    if (
+        ball[i].loc.x - ball[i].radius <= bricks[r][c].x + brick.length &&
         ball[i].loc.x - ball[i].radius > bricks[r][c].x + brick.length / 2 &&
         ball[i].loc.y > bricks[r][c].y &&
-        ball[i].loc.y < bricks[r][c].y + brick.thickness) {
-            if (bricks[r][c].property) {
-                powers.push(new Power(bricks[r][c].x, bricks[r][c].y, bricks[r][c].property));
-                powers[powers.length - 1].setImage();
-            }
-            ball[i].loc.x = bricks[r][c].x + brick.length + ball[i].radius;
-            ball[i].velocity.x *= -1;
-            bricks[r][c].isHit = true;
-            score++;
-            brickBall_coll.play();
-            broken_bricks++;
-            return true;
+        ball[i].loc.y < bricks[r][c].y + brick.thickness
+    ) {
+        if (bricks[r][c].property) {
+            powers.push(new Power(bricks[r][c].x, bricks[r][c].y, bricks[r][c].property));
+            powers[powers.length - 1].setImage();
+        }
+        ball[i].loc.x = bricks[r][c].x + brick.length + ball[i].radius;
+        ball[i].velocity.x *= -1;
+        bricks[r][c].isHit = true;
+        score++;
+        brickBall_coll.play();
+        broken_bricks++;
+        return true;
     }
     return false;
 }
 
 function checkTopSide(i, r, c) {
-    if (ball[i].loc.y + ball[i].radius >= bricks[r][c].y &&
+    if (
+        ball[i].loc.y + ball[i].radius >= bricks[r][c].y &&
         ball[i].loc.y + ball[i].radius < bricks[r][c].y + brick.thickness &&
         ball[i].loc.x > bricks[r][c].x &&
-        ball[i].loc.x < bricks[r][c].x + brick.length) {
-            if (bricks[r][c].property) {
-                powers.push(new Power(bricks[r][c].x, bricks[r][c].y, bricks[r][c].property));
-                powers[powers.length - 1].setImage();
-            }
-            ball[i].loc.y = bricks[r][c].y - ball[i].radius;
-            ball[i].velocity.y *= -1;
-            bricks[r][c].isHit = true;
-            score++;
-            brickBall_coll.play();
-            broken_bricks++;
-            return true;
+        ball[i].loc.x < bricks[r][c].x + brick.length
+    ) {
+        if (bricks[r][c].property) {
+            powers.push(new Power(bricks[r][c].x, bricks[r][c].y, bricks[r][c].property));
+            powers[powers.length - 1].setImage();
+        }
+        ball[i].loc.y = bricks[r][c].y - ball[i].radius;
+        ball[i].velocity.y *= -1;
+        bricks[r][c].isHit = true;
+        score++;
+        brickBall_coll.play();
+        broken_bricks++;
+        return true;
     }
     return false;
 }
 
 function check_powerBar_coll() {
     for (let i = 0; i < powers.length; i++) {
-        if (powers[i].y + powers[i].thickness >= bar.y &&
+        if (
+            powers[i].y + powers[i].thickness >= bar.y &&
             // powers[i].y + powers[i].thickness <= bar.y + bar.thickness &&
             powers[i].x + powers[i].length > bar.mid - bar.length / 2 &&
-            powers[i].x < bar.mid + bar.length / 2) {
-                let p = powers[i].power;
-                powers.splice(i, 1);
-                i--;
-                return p;
+            powers[i].x < bar.mid + bar.length / 2
+        ) {
+            let p = powers[i].power;
+            powers.splice(i, 1);
+            i--;
+            return p;
         }
-        if (powers[i].y > height){
+        if (powers[i].y > height) {
             powers.splice(i, 1);
             i--;
         }
@@ -641,50 +662,41 @@ function doSomething(value) {
         if (bar.length < 400) {
             bar.length += 50;
         }
-    }
-    else if (value == 'p') {
+    } else if (value == 'p') {
         if (bar.length > 50) {
             bar.length -= 50;
         }
-    }
-    else if (value == 'B') {
+    } else if (value == 'B') {
         for (let i = 0; i < ball.length; i++) {
             ball[i].radius = 20;
         }
-    }
-    else if (value == 'b') {
+    } else if (value == 'b') {
         for (let i = 0; i < ball.length; i++) {
             ball[i].radius = 7;
         }
-    }
-    else if (value == '+') {
+    } else if (value == '+') {
         ball.push(new Ball());
         ball[ball.length - 1].setloc(ball[0].loc.x, ball[0].loc.y);
         ball[ball.length - 1].setRanAngleUpward();
-    }
-    else if (value == 'S') {
+    } else if (value == 'S') {
         if (sp < 14) {
             sp += 3;
         }
-    }
-    else if (value == 's') {
+    } else if (value == 's') {
         if (sp > 3) {
             sp -= 3;
         }
-    }
-    else if (value == 'X') {
+    } else if (value == 'X') {
         flag = true;
         life--;
         ball.splice(1, ball.length - 1);
         ball[0].reset();
         loselife.play();
-    }
-    else if (value == 'L') {
-        if (life < 10){
+    } else if (value == 'L') {
+        if (life < 10) {
             life++;
         }
-    }
-    else if (value == 'l') {
+    } else if (value == 'l') {
         broken_bricks = total_bricks;
         ball.splice(1, ball.length - 1);
         ball[0].reset();
@@ -692,12 +704,12 @@ function doSomething(value) {
 }
 
 function sp_inc(_sp) {
-    return _sp = default_sp + level * 3;
+    return (_sp = default_sp + level * 3);
 }
 
 function totalBricks(level) {
     let cnt = 0;
-    for (let r  = 0; r < levels[level].color.length; r ++) {
+    for (let r = 0; r < levels[level].color.length; r++) {
         for (let c = 0; c < levels[level].color[r].length; c++) {
             // console.log(level, r, c);
             if (levels[level].color[r][c] != ' ') cnt++;
@@ -734,12 +746,12 @@ function checkWon(_level) {
         fill(0);
         textAlign(CENTER);
         textSize(30);
-        text("Congratulations", width / 2, height / 2);
-        text("You won!", width / 2, height / 2 + 40);
-        text("Score :", width / 2 - 10, height / 2 + 80);
+        text('Congratulations', width / 2, height / 2);
+        text('You won!', width / 2, height / 2 + 40);
+        text('Score :', width / 2 - 10, height / 2 + 80);
         text(score, width / 2 + 65, height / 2 + 80);
         textSize(20);
-        text("Press F5/Reload to restart!", width / 2, height / 2 + 120);
+        text('Press F5/Reload to restart!', width / 2, height / 2 + 120);
         noLoop();
     }
     return _level;
@@ -750,12 +762,12 @@ function gameOver() {
     fill(0);
     textAlign(CENTER);
     textSize(30);
-    text("Sorry!", width / 2, height / 2 + 10);
-    text("You lose!", width / 2, height / 2 + 50);
-    text("Score :", width / 2 - 10, height / 2 + 90);
+    text('Sorry!', width / 2, height / 2 + 10);
+    text('You lose!', width / 2, height / 2 + 50);
+    text('Score :', width / 2 - 10, height / 2 + 90);
     text(score, width / 2 + 65, height / 2 + 90);
     textSize(20);
-    text("Press F5/Reload to restart!", width / 2, height / 2 + 130);
+    text('Press F5/Reload to restart!', width / 2, height / 2 + 130);
     noLoop();
 }
 
@@ -763,7 +775,7 @@ function score_life() {
     // Score
     fill(0);
     textSize(20);
-    text("Score :", width - 120, 20);
+    text('Score :', width - 120, 20);
     text(score, width - 55, 20);
 
     //Life
@@ -781,38 +793,68 @@ function printInstruction() {
     fill(0);
     textAlign(CENTER);
     textSize(45);
-    text("Instructions", width / 2, 50);
+    text('Instructions', width / 2, 50);
     textAlign(LEFT);
     textSize(23);
     text("* Press 'ENTER' to skip", 20, 100);
-    text("* To move the paddle, use the mouse.", 20, 130);
-    text("* The ball will appear in the middle of the canvas at the beginning and start moving downwards in a random direction.", 20, 160);
-    text("* Player will have 5 lives at each level and each time the ball has fallen, player will lose a life.", 20, 190);
-    text("* There are four levels. The speed of the ball will increase as the level increases.", 20, 220);
-    text("* There are also some Power-Ups. This Power-Ups will appear randomly when a brick is being broken", 20, 250);
-    text("* Player can catch or avoid the Power-Ups with the paddle. Effects of different Power-Ups are described below.", 20, 280);
-    image(paddle_expansion,20, 310, 70, 60);
-    image(paddle_contraction,140, 310, 70, 60);
-    image(ball_cotraction,260, 310, 70, 60);
-    image(ball_expansion,380, 310, 70, 60);
-    image(ball_plus_one,500, 310, 70, 60);
-    image(ball_speedUp,620, 310, 70, 60);
-    image(ball_speedDown,740, 310, 70, 60);
-    image(skull,860, 310, 70, 60);
-    image(lifeUp,980, 310, 70, 60);
-    image(levelUp,1100, 310, 70, 60);
+    text('* To move the paddle, use the mouse.', 20, 130);
+    text(
+        '* The ball will appear in the middle of the canvas at the beginning and start moving downwards in a random direction.',
+        20,
+        160
+    );
+    text(
+        '* Player will have 5 lives at each level and each time the ball has fallen, player will lose a life.',
+        20,
+        190
+    );
+    text(
+        '* There are four levels. The speed of the ball will increase as the level increases.',
+        20,
+        220
+    );
+    text(
+        '* There are also some Power-Ups. This Power-Ups will appear randomly when a brick is being broken',
+        20,
+        250
+    );
+    text(
+        '* Player can catch or avoid the Power-Ups with the paddle. Effects of different Power-Ups are described below.',
+        20,
+        280
+    );
+    image(paddle_expansion, 20, 310, 70, 60);
+    image(paddle_contraction, 140, 310, 70, 60);
+    image(ball_cotraction, 260, 310, 70, 60);
+    image(ball_expansion, 380, 310, 70, 60);
+    image(ball_plus_one, 500, 310, 70, 60);
+    image(ball_speedUp, 620, 310, 70, 60);
+    image(ball_speedDown, 740, 310, 70, 60);
+    image(skull, 860, 310, 70, 60);
+    image(lifeUp, 980, 310, 70, 60);
+    image(levelUp, 1100, 310, 70, 60);
     textSize(17);
     textAlign(CENTER);
-    text("paddle",55,390); text("expansion", 55, 410);
-    text("paddle",175,390); text("contraction", 175, 410);
-    text("decrease",295,390); text("ball size", 295, 410);
-    text("increase",415,390); text("ball size", 415, 410);
-    text("add",535,390); text("one ball", 535, 410);
-    text("increase ball",655,390); text("velocity", 655, 410);
-    text("decrease ball",775,390); text("velocity", 775, 410);
-    text("lose",895,390); text("one life", 895, 410);
-    text("gain",1015,390); text("one life", 1015, 410);
-    text("go to",1135,390); text("next level", 1135, 410);
+    text('paddle', 55, 390);
+    text('expansion', 55, 410);
+    text('paddle', 175, 390);
+    text('contraction', 175, 410);
+    text('decrease', 295, 390);
+    text('ball size', 295, 410);
+    text('increase', 415, 390);
+    text('ball size', 415, 410);
+    text('add', 535, 390);
+    text('one ball', 535, 410);
+    text('increase ball', 655, 390);
+    text('velocity', 655, 410);
+    text('decrease ball', 775, 390);
+    text('velocity', 775, 410);
+    text('lose', 895, 390);
+    text('one life', 895, 410);
+    text('gain', 1015, 390);
+    text('one life', 1015, 410);
+    text('go to', 1135, 390);
+    text('next level', 1135, 410);
     textAlign(LEFT);
     text("* Press 'LEFT-ARROW' key to move to next level (NOT RECOMMENDED)", 20, 450);
 }

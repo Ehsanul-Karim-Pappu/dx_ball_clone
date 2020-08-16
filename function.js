@@ -68,10 +68,7 @@ function brickArray(level) {
             let y = r * (brick.vGap + brick.thickness) + 35;
             bricks[r][c] = new Brick(x, y);
             bricks[r][c].isHit = false;
-            if (
-                levels[level].extra[r][c] != ' ' &&
-                levels[level].extra[r][c] != '.'
-            ) {
+            if (levels[level].extra[r][c] != ' ' && levels[level].extra[r][c] != '.') {
                 bricks[r][c].setProperty(levels[level].extra[r][c]);
             }
         }
@@ -99,46 +96,28 @@ function brick_ballColl() {
         for (let r = bricks.length - 1; r >= 0; r--) {
             for (let c = bricks[r].length - 1; c >= 0; c--) {
                 if (levels[level].color[r][c] != ' ' && !bricks[r][c].isHit) {
-                    if (
-                        ball[i].loc.x >= past_loc.x &&
-                        ball[i].loc.y <= past_loc.y
-                    ) {
+                    if (ball[i].loc.x >= past_loc.x && ball[i].loc.y <= past_loc.y) {
                         // going upward right
-                        if (
-                            checkLeftSide(i, r, c) ||
-                            checkBottomSide(i, r, c)
-                        ) {
+                        if (checkLeftSide(i, r, c) || checkBottomSide(i, r, c)) {
                             break_flag = true;
                             break;
                         }
                     }
-                    if (
-                        ball[i].loc.x <= past_loc.x &&
-                        ball[i].loc.y <= past_loc.y
-                    ) {
+                    if (ball[i].loc.x <= past_loc.x && ball[i].loc.y <= past_loc.y) {
                         // going upward left
-                        if (
-                            checkRightSide(i, r, c) ||
-                            checkBottomSide(i, r, c)
-                        ) {
+                        if (checkRightSide(i, r, c) || checkBottomSide(i, r, c)) {
                             break_flag = true;
                             break;
                         }
                     }
-                    if (
-                        ball[i].loc.x >= past_loc.x &&
-                        ball[i].loc.y >= past_loc.y
-                    ) {
+                    if (ball[i].loc.x >= past_loc.x && ball[i].loc.y >= past_loc.y) {
                         // going downward right
                         if (checkLeftSide(i, r, c) || checkTopSide(i, r, c)) {
                             break_flag = true;
                             break;
                         }
                     }
-                    if (
-                        ball[i].loc.x <= past_loc.x &&
-                        ball[i].loc.y >= past_loc.y
-                    ) {
+                    if (ball[i].loc.x <= past_loc.x && ball[i].loc.y >= past_loc.y) {
                         // going downward left
                         if (checkRightSide(i, r, c) || checkTopSide(i, r, c)) {
                             break_flag = true;
@@ -164,9 +143,7 @@ function checkLeftSide(i, r, c) {
         ball[i].loc.y < bricks[r][c].y + brick.thickness
     ) {
         if (bricks[r][c].property) {
-            powers.push(
-                new Power(bricks[r][c].x, bricks[r][c].y, bricks[r][c].property)
-            );
+            powers.push(new Power(bricks[r][c].x, bricks[r][c].y, bricks[r][c].property));
             powers[powers.length - 1].setImage();
         }
         ball[i].loc.x = bricks[r][c].x - ball[i].radius;
@@ -192,9 +169,7 @@ function checkBottomSide(i, r, c) {
         ball[i].loc.x < bricks[r][c].x + brick.length
     ) {
         if (bricks[r][c].property) {
-            powers.push(
-                new Power(bricks[r][c].x, bricks[r][c].y, bricks[r][c].property)
-            );
+            powers.push(new Power(bricks[r][c].x, bricks[r][c].y, bricks[r][c].property));
             powers[powers.length - 1].setImage();
         }
         ball[i].loc.y = bricks[r][c].y + brick.thickness + ball[i].radius;
@@ -220,9 +195,7 @@ function checkRightSide(i, r, c) {
         ball[i].loc.y < bricks[r][c].y + brick.thickness
     ) {
         if (bricks[r][c].property) {
-            powers.push(
-                new Power(bricks[r][c].x, bricks[r][c].y, bricks[r][c].property)
-            );
+            powers.push(new Power(bricks[r][c].x, bricks[r][c].y, bricks[r][c].property));
             powers[powers.length - 1].setImage();
         }
         ball[i].loc.x = bricks[r][c].x + brick.length + ball[i].radius;
@@ -248,9 +221,7 @@ function checkTopSide(i, r, c) {
         ball[i].loc.x < bricks[r][c].x + brick.length
     ) {
         if (bricks[r][c].property) {
-            powers.push(
-                new Power(bricks[r][c].x, bricks[r][c].y, bricks[r][c].property)
-            );
+            powers.push(new Power(bricks[r][c].x, bricks[r][c].y, bricks[r][c].property));
             powers[powers.length - 1].setImage();
         }
         ball[i].loc.y = bricks[r][c].y - ball[i].radius;
@@ -439,21 +410,41 @@ function printInstruction() {
     textSize(23);
     text("* Press 'ENTER' to skip", 20, 100);
     text('* To move the paddle, use the mouse.', 20, 130);
-    text('* The ball will appear in the middle of the canvas at the beginning and start moving downwards in a random direction.', 20, 160);
-    text('* Player will have 5 lives at each level and each time the ball has fallen, player will lose a life.', 20, 190);
-    text('* There are four levels. The speed of the ball will increase as the level increases.', 20, 220);
-    text('* There are also some Power-Ups. This Power-Ups will appear randomly when a brick is being broken', 20, 250);
-    text('* Player can catch or avoid the Power-Ups with the paddle. Effects of different Power-Ups are described below.', 20, 280);
-    image(paddle_expansion, 20, 310, 70, 60);
-    image(paddle_contraction, 140, 310, 70, 60);
-    image(ball_cotraction, 260, 310, 70, 60);
-    image(ball_expansion, 380, 310, 70, 60);
-    image(ball_plus_one, 500, 310, 70, 60);
-    image(ball_speedUp, 620, 310, 70, 60);
-    image(ball_speedDown, 740, 310, 70, 60);
-    image(skull, 860, 310, 70, 60);
-    image(lifeUp, 980, 310, 70, 60);
-    image(levelUp, 1100, 310, 70, 60);
+    text(
+        '* The ball will appear in the middle of the canvas at the beginning and start moving downwards in a random direction.',
+        20,
+        160
+    );
+    text(
+        '* Player will have 5 lives at each level and each time the ball has fallen, player will lose a life.',
+        20,
+        190
+    );
+    text(
+        '* There are four levels. The speed of the ball will increase as the level increases.',
+        20,
+        220
+    );
+    text(
+        '* There are also some Power-Ups. This Power-Ups will appear randomly when a brick is being broken.',
+        20,
+        250
+    );
+    text(
+        '* Player can catch or avoid the Power-Ups with the paddle. Effects of different Power-Ups are described below.',
+        20,
+        280
+    );
+    image(paddle_expansion, 20, 310, 70, 70);
+    image(paddle_contraction, 140, 310, 70, 70);
+    image(ball_cotraction, 260, 310, 70, 70);
+    image(ball_expansion, 380, 310, 70, 70);
+    image(ball_plus_one, 500, 310, 70, 70);
+    image(ball_speedUp, 620, 310, 70, 70);
+    image(ball_speedDown, 740, 310, 70, 70);
+    image(skull, 860, 310, 70, 70);
+    image(lifeUp, 980, 310, 70, 70);
+    image(levelUp, 1100, 310, 70, 70);
     textSize(17);
     textAlign(CENTER);
     text('paddle', 55, 390);

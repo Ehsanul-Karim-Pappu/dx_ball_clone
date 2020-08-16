@@ -30,10 +30,7 @@ class Ball {
         this.radius = default_ball_radius;
         this.velocity = new Vector(1, 1);
         this.velocity.setAngle(
-            random(
-                (atan2(height, width) * 180) / Math.PI,
-                (atan2(height, -width) * 180) / Math.PI
-            )
+            random((atan2(height, width) * 180) / Math.PI, (atan2(height, -width) * 180) / Math.PI)
         );
         this.drop_cnt = 0;
     }
@@ -143,7 +140,7 @@ class Power {
     constructor(_x, _y, _power) {
         this.x = _x;
         this.y = _y;
-        this.thickness = 40;
+        this.thickness = 50;
         this.length = 50;
         this.yVelocity = 6;
         this.img = null;
