@@ -25,6 +25,8 @@ git clone https://github.com/ehsanul-karim-pappu/html_css_js.git
 -   There are also some Power-Ups. This Power-Ups will appear randomly when a brick is being broken.
 -   Player can catch or avoid the Power-Ups with the paddle.
 
+![](https://github.com/Ehsanul-Karim-Pappu/html_css_js/blob/master/fun/dx_ball/screenshots/gameplay.gif)
+
 ### Screenshots
 
 ![](screenshots/Instructions.png)
@@ -32,11 +34,6 @@ git clone https://github.com/ehsanul-karim-pappu/html_css_js.git
 ![](screenshots/level_2.png)
 ![](screenshots/level_3.png)
 ![](screenshots/level_4.png)
-![](screenshots/powerup1.png)
-![](screenshots/powerup2png)
-![](screenshots/powerup3png)
-![](screenshots/powerup4png)
-![](screenshots/powerup5png)
 
 ## Contact
 
