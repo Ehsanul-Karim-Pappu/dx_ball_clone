@@ -6,7 +6,8 @@
 
 ### Built With
 
--   [p5js](https://p5js.org/)
+- [<img align="left" width="25px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/javascript/javascript.png" />][javascript] 
+- [<img align="left" width="25px" src="https://github.com/Ehsanul-Karim-Pappu/html_css_js/blob/master/fun/dx_ball/screenshots/p5js.svg" />][p5js] 
 
 ### Clone the repo
 
@@ -27,21 +28,26 @@ git clone https://github.com/ehsanul-karim-pappu/html_css_js.git
 
 ![](https://github.com/Ehsanul-Karim-Pappu/html_css_js/blob/master/fun/dx_ball/screenshots/gameplay.gif)
 
-### Screenshots
+## Screenshots
 
-![](screenshots/Instructions.png)
-![](screenshots/level_1.png)
-![](screenshots/level_2.png)
-![](screenshots/level_3.png)
-![](screenshots/level_4.png)
+<img align="left" src="screenshots/Instructions.png" width="90%">
+<img align="left" src="screenshots/level_1.png" width="90%">
+<img align="left" src="screenshots/level_2.png" width="90%">
+<img align="left" src="screenshots/level_3.png" width="90%">
+<img align="left" src="screenshots/level_4.png" width="90%">
 
-## Contact
+## Connect with me:
 
-Khandaker Ehsanul Karim
+[<img align="left" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />][linkedin] 
+[<img align="left" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@3.5.0/icons/facebook.svg" />][facebook] 
+[<img align="left" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/instagram.svg" />][instagram] 
+[<img align="left" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/github.svg" />][github] 
 
-[Email](ehsan.pappu.99@gmail.com)  
-[linkedIn](https://www.linkedin.com/in/ehsanul-karim-174b91136/)  
-[Facebook](https://www.facebook.com/ehsanulkarimpappu)  
-[github](https://github.com/ehsanul-karim-pappu/)
 
-Project Link: [https://github.com/ehsanul-karim-pappu/html_css_js/fun/dx_ball](https://github.com/ehsanul-karim-pappu/html_css_js/fun/dx_ball)
+
+[p5js]: https://p5js.org/
+[javascript]: https://en.wikipedia.org/wiki/JavaScript
+[linkedIn]: https://www.linkedin.com/in/ehsanul-karim-174b91136/
+[instagram]: https://www.instagram.com/ehsanul_karim_3p/
+[facebook]: https://www.facebook.com/ehsanulkarimpappu
+[github]: https://github.com/ehsanul-karim-pappu/
