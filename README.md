@@ -6,8 +6,8 @@
 
 ### Built With
 
-- [<img align="left" width="25px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/javascript/javascript.png" />][javascript] 
-- [<img align="left" width="25px" src="https://github.com/Ehsanul-Karim-Pappu/html_css_js/blob/master/fun/dx_ball/screenshots/p5js.svg" />][p5js] 
+-   [<img align="left" width="25px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/javascript/javascript.png" />][javascript]
+-   [<img align="left" width="25" src="https://github.com/Ehsanul-Karim-Pappu/html_css_js/blob/master/fun/dx_ball/screenshots/p5js.png/>][p5js]
 
 ### Clone the repo
 
@@ -38,16 +38,14 @@ git clone https://github.com/ehsanul-karim-pappu/html_css_js.git
 
 ## Connect with me:
 
-[<img align="left" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />][linkedin] 
-[<img align="left" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@3.5.0/icons/facebook.svg" />][facebook] 
-[<img align="left" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/instagram.svg" />][instagram] 
-[<img align="left" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/github.svg" />][github] 
-
-
+[<img align="left" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />][linkedin]
+[<img align="left" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@3.5.0/icons/facebook.svg" />][facebook]
+[<img align="left" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/instagram.svg" />][instagram]
+[<img align="left" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/github.svg" />][github]
 
 [p5js]: https://p5js.org/
 [javascript]: https://en.wikipedia.org/wiki/JavaScript
-[linkedIn]: https://www.linkedin.com/in/ehsanul-karim-174b91136/
+[linkedin]: https://www.linkedin.com/in/ehsanul-karim-174b91136/
 [instagram]: https://www.instagram.com/ehsanul_karim_3p/
 [facebook]: https://www.facebook.com/ehsanulkarimpappu
 [github]: https://github.com/ehsanul-karim-pappu/
