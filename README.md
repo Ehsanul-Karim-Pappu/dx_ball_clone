@@ -7,7 +7,7 @@
 ### Built With
 
 -   [<img align="left" width="25px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/javascript/javascript.png" />][javascript]
--   [<img align="left" width="25" src="https://github.com/Ehsanul-Karim-Pappu/html_css_js/blob/master/fun/dx_ball/screenshots/p5js.png/>][p5js]
+-   [<img align="left" width="25" src="https://github.com/Ehsanul-Karim-Pappu/html_css_js/blob/master/fun/dx_ball/screenshots/p5js.png"/>][p5js]
 
 ### Clone the repo
 
