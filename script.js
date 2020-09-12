@@ -85,7 +85,7 @@ function setup() {
 function draw() {
     background(220);
     tmp++;
-    if (tmp <= 2500) {
+    if (tmp <= 1500) {
         printInstruction();
     } else {
         if (life == 0) gameOver();
